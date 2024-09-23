@@ -1,0 +1,1 @@
+URL training file: https://innotechvietnam-my.sharepoint.com/:x:/r/personal/tuanthm_innotech-vn_com/_layouts/15/Doc.aspx?sourcedoc=%7B0232F7B4-8610-481D-9358-EF8DEE878FC3%7D&file=Trainning%20sections.xlsx&action=default&mobileredirect=true
