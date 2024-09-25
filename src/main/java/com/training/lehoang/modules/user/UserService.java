@@ -35,15 +35,9 @@ public class UserService {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    public UserResponse getUserInfo(){
+    public User getUser(){
         String email = this.getEmail();
-        User user = this.findByEmail(email);
-        return UserResponse.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(email)
-                .contactInfo(user.getContactInfo())
-                .build();
+        return this.findByEmail(email);
     }
 
     public UserResponse updateUser(int id, UpdateUserRequest updateUserRequest){

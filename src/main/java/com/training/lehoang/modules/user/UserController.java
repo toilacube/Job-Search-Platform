@@ -3,6 +3,7 @@ package com.training.lehoang.modules.user;
 import com.training.lehoang.dto.request.UpdateUserRequest;
 import com.training.lehoang.dto.response.ApiResponse;
 import com.training.lehoang.dto.response.UserResponse;
+import com.training.lehoang.entity.User;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,18 @@ public class UserController {
 
     @GetMapping()
     public ApiResponse<UserResponse> getUserInfo() {
-        return ApiResponse.<UserResponse>builder().data(this.userService.getUserInfo()).build();
+
+        User user = this.userService.getUser();
+
+        var userRes = UserResponse.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .contactInfo(user.getContactInfo())
+                .build();
+        return ApiResponse.<UserResponse>builder()
+                .data(userRes)
+                .build();
     }
 
     @PatchMapping("{id}")

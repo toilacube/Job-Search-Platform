@@ -35,7 +35,7 @@ CREATE TABLE "job" (
                              location VARCHAR(255),
                              salary DECIMAL(15, 2),
                              "jobType" VARCHAR(50),  -- Full-time or part-time
-                             "isDeleted" boolean,
+                             "isDeleted" boolean default false,
                              FOREIGN KEY ("recruiterId") REFERENCES users(id) ON DELETE CASCADE
 );
 

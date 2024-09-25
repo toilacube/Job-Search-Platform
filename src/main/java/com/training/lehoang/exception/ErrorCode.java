@@ -17,6 +17,7 @@ public enum ErrorCode {
     INVALID_DOB( "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     EMAIL_ALREADY_EXISTS( "Email already exists", HttpStatus.BAD_REQUEST),
     UPLOAD_FILE_FAILED( "Upload file failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    JOB_NOT_FOUND( "Job not found", HttpStatus.NOT_FOUND),
     ;
     private final String message;
     private final HttpStatusCode statusCode;
