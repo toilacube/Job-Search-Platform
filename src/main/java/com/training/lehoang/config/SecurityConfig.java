@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -21,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.crypto.SecretKey;
@@ -36,20 +39,37 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
 
-    private static final String[] PUBLIC_MATCHERS ={
-        "/auth/**", "/user/**"
+    private static final String[] ADMIN_MATCHERS ={
+            "/job/**", "/test/**"
     };
+
+    private static final String[] PUBLIC_MATCHERS = {
+            // /error because So. whenever an exception is thrown and it is not handled by
+            // any @ExceptionHandler annotated method, then Spring boot will call this endpoint (/error)
+            "/auth/**",
+            "/user/**",
+            "/error/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request
+                                .requestMatchers(ADMIN_MATCHERS).hasRole("ADMIN")
                                 .requestMatchers(PUBLIC_MATCHERS).permitAll()
-                                .anyRequest().authenticated())
+                                .anyRequest().authenticated()
+
+                                )
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(jwt ->
-                                jwt.decoder(jwtDecoder()) ) )
+                                jwt.decoder(jwtDecoder())
+                                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                )
+                .exceptionHandling(exception ->
+                        exception.accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .userDetailsService(customUserDetailsService)
                 ;
 
@@ -80,4 +100,14 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(10);
     }
 
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        grantedAuthoritiesConverter.setAuthoritiesClaimName("authorities");
+        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+        return jwtAuthenticationConverter;
+    }
 }

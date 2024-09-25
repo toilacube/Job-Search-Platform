@@ -4,6 +4,7 @@ import com.training.lehoang.dto.request.AuthRequest;
 import com.training.lehoang.dto.request.RegisterRequest;
 import com.training.lehoang.dto.response.ApiResponse;
 import com.training.lehoang.dto.response.AuthResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

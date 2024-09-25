@@ -9,6 +9,7 @@ import com.training.lehoang.dto.response.AuthResponse;
 import com.training.lehoang.entity.User;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
+import com.training.lehoang.modules.user.CustomUserDetails;
 import com.training.lehoang.modules.user.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +31,9 @@ import java.security.Security;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.security.core.GrantedAuthority;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -43,8 +46,7 @@ public class AuthService {
     public AuthResponse register(RegisterRequest registerRequest) {
 
         String email = registerRequest.getEmail();
-        User checkUser = this.userRepo.findByEmail(email).orElse(null);
-        if (checkUser != null) {
+        if (this.userRepo.existsByEmail(email)) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
@@ -71,13 +73,6 @@ public class AuthService {
     }
 
     public AuthResponse authenticate(AuthRequest authRequest) {
-//        PasswordEncoder pw = new BCryptPasswordEncoder(10);
-//        User user = this.userRepo.findByEmail(authRequest.getEmail()).orElseThrow(
-//                () -> new AppException(ErrorCode.USER_NOT_EXISTED)
-//        );
-//        boolean checkAuth = pw.matches(authRequest.getPassword(), user.getPasswordHash());
-//        if (!checkAuth) throw new AppException(ErrorCode.UNAUTHENTICATED);
-//        return AuthResponse.builder().accessToken(createToken(user)).build();
 
         Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(authRequest.getEmail(), authRequest.getPassword());
 
@@ -91,10 +86,15 @@ public class AuthService {
 
 
     public String createToken(Authentication authentication) {
+
+        CustomUserDetails userDetails = authentication.getPrincipal() instanceof CustomUserDetails ? (CustomUserDetails) authentication.getPrincipal() : null;
+//        System.out.println(userDetails.getAuthorities());
+
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(authentication.getName())
                 .issueTime(new Date())
+                .claim("authorities", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .expirationTime(new Date(Instant.now().plus(9999999, ChronoUnit.MINUTES).toEpochMilli()))
                 .build();
         Payload payload = new Payload(claimsSet.toJSONObject());
