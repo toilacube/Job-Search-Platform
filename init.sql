@@ -3,7 +3,26 @@ CREATE TABLE users (
                        email VARCHAR(255) UNIQUE NOT NULL,
                        "passwordHash" VARCHAR(255) NOT NULL,  -- Storing the hash of the password
                        name VARCHAR(255) NOT NULL,
-                       "contactInfo" VARCHAR(255)
+                       "contactInfo" VARCHAR(255),
+                        "resumeUrl" VARCHAR(255)
+);
+
+-- create table resumes(
+--     id SERIAL PRIMARY KEY,
+--     url VARCHAR(255)
+-- )
+
+create table roles (
+    id serial primary key,
+    name varchar(255)
+);
+
+create table "usersRoles"(
+    id serial primary key,
+    "userId" int not null,
+    "roleId" int not null,
+    foreign key ("userId") references users(id) on delete cascade,
+    foreign key ("roleId") references roles(id) on delete cascade
 );
 
 
@@ -31,6 +50,9 @@ CREATE TABLE "jobApplications" (
                                  FOREIGN KEY ("userId") REFERENCES users(id) ON DELETE CASCADE,
                                  FOREIGN KEY ("jobId") REFERENCES "jobListings"(id) ON DELETE CASCADE
 );
+
+insert into users (id, email, "passwordHash", name, "contactInfo")
+values (1, 'string@gmail.com', '$2a$10$i4KuMgCDm2AjfBYF9hoAJ.sc59m93IUU6Ic/VwccIOFBch3hx2k9y', 'toilacube', '66669999');
 
 
 

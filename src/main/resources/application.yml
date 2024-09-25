@@ -1,8 +1,13 @@
 spring:
   application:
     name: "lehoang"
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 5MB
   datasource:
-    url: jdbc:postgresql://localhost:5431/spring
+    url: jdbc:postgresql://localhost:5430/spring
     username: user
     password: user
     driver-class-name: org.postgresql.Driver
@@ -11,3 +16,11 @@ spring:
     port: 5672
     username: guest
     password: guest
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+jwt:
+  secret: tPfXBOu9n0MMf6QWr8kmIpUU7hHG3xugHsKo3jNAx514dXkXGfQ17SlJyKPvjPclfTu9noA/YSLT7ZYiPPgGhg==
