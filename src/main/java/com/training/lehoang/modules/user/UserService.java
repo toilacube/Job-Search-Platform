@@ -4,7 +4,9 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.training.lehoang.dto.request.UpdateUserRequest;
 import com.training.lehoang.dto.response.UserResponse;
+import com.training.lehoang.entity.Role;
 import com.training.lehoang.entity.User;
+import com.training.lehoang.entity.UsersRole;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -108,4 +112,16 @@ public class UserService {
         return "ok";
     }
 
+
+    public String test(){
+        User user = this.findByEmail(getEmail());
+        System.out.println(user.getUsersRoles());
+        Set<UsersRole> usersRole = user.getUsersRoles();
+        ArrayList<String> roles = new ArrayList<>();
+        usersRole.forEach(usersRole1 -> {
+            roles.add(usersRole1.getRole().getName());
+
+        });
+        return roles.toString();
+    }
 }
