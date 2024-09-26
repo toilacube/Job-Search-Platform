@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LehoangApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(LehoangApplication.class, args);
+        System.out.println("Hello world");
    }
 
 }
