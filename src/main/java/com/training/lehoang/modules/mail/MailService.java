@@ -1,51 +1,49 @@
-package com.training.lehoang.modules;
+package com.training.lehoang.modules.mail;
 
 import com.google.common.collect.Lists;
+import com.training.lehoang.dto.response.JobApplicationResponse;
 import com.training.lehoang.entity.Job;
+import com.training.lehoang.entity.Test;
+import com.training.lehoang.entity.User;
 import it.ozimov.springboot.mail.model.Email;
 import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
 import it.ozimov.springboot.mail.service.EmailService;
+import it.ozimov.springboot.mail.service.TemplateService;
 import it.ozimov.springboot.mail.service.exception.CannotSendEmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/mail")
+@Service
 @RequiredArgsConstructor
-public class SendMail {
+public class MailService {
     private final EmailService emailService;
+    private final TemplateService templateService;
 
-    @GetMapping("")
-    public void sendMail()  {
-       this.sendEmailWithTemplating();
-    }
-
-    public void sendEmailWithOutTemplating() throws IOException, MessagingException{
+    @Value("${test.email}")
+    private String recruiterEmail;
+    
+    public void sendEmailWithOutTemplating(UserAndJob user) throws IOException, MessagingException {
         final Email email = DefaultEmail.builder()
                 .from(new InternetAddress("21520870@gm.uit.edu.vn", "Marco Tullio Cicerone "))
-                .to(Lists.newArrayList(new InternetAddress("nguyensylehoang@gmail.com", "Pomponius Attĭcus")))
+                .to(Lists.newArrayList(new InternetAddress(recruiterEmail, "Helloooooo")))
                 .subject("Laelius de amicitia")
-                .body("Firmamentum autem stabilitatis constantiaeque eius, quam in amicitia quaerimus, fides est.")
+                .body("ok")
                 .encoding("UTF-8").build();
 
         MimeMessage m = this.emailService.send(email);
         System.out.println(m.getContent());
     }
-
-    public void sendEmailWithTemplating(){
+    public void sendEmailWithTemplating(UserAndJob userAndJob){
         Arrays.asList(new Cospirator("nguyensylehoang@gmail.com", "There is a new Application, Check this out"))
                 .forEach(tyrannicida -> {
                     final Email email;
@@ -59,14 +57,9 @@ public class SendMail {
                     } catch (UnsupportedEncodingException e) {
                         throw new RuntimeException(e);
                     }
-                    Job job = new Job();
-                    job.setJobTitle("Software Engineer");
-                    job.setCompanyName("Tech Corp");
-                    job.setSalary(new BigDecimal(75000));
 
                     final Map<String, Object> modelObject = new HashMap<>();
-                    modelObject.put("application", tyrannicida.getName());
-                    modelObject.put("job", job);
+                    modelObject.put("userAndJob", userAndJob);
 
                     try {
                         emailService.send(email, "test.html", modelObject);
@@ -91,5 +84,4 @@ public class SendMail {
             return name;
         }
     }
-
 }

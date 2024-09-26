@@ -5,11 +5,16 @@ import com.cloudinary.utils.ObjectUtils;
 import com.training.lehoang.dto.response.JobApplicationResponse;
 import com.training.lehoang.entity.Job;
 import com.training.lehoang.entity.JobApplication;
+import com.training.lehoang.entity.Test;
 import com.training.lehoang.entity.User;
 import com.training.lehoang.modules.job.JobRepo;
+import com.training.lehoang.modules.mail.UserAndJob;
+import com.training.lehoang.modules.rabbitmq.JobProducer;
+import com.training.lehoang.modules.rabbitmq.RabbitMQConfig;
 import com.training.lehoang.modules.user.UserService;
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Text;
@@ -25,6 +30,7 @@ public class JobAppService {
     private final JobAppRepo jobAppRepo;
     private final UserService userService;
     private final JobRepo jobRepo;
+    private final JobProducer jobProducer;
 
     public JobApplicationResponse sendApplication(Integer jobId, MultipartFile resume, String coverLetter) {
         Job job = jobRepo.findById(jobId).orElse(null);
@@ -40,13 +46,24 @@ public class JobAppService {
         jobApplication.setAppliedAt(Instant.now());
         jobAppRepo.save(jobApplication);
 
-        var jobAppRes = JobApplicationResponse.builder()
+        JobApplicationResponse jobAppRes = JobApplicationResponse.builder()
                 .coverLetter(coverLetter)
                 .resumeUrl(resumeUrl)
                 .build();
-
+        UserAndJob userAndJob = UserAndJob.builder()
+                .email(user.getEmail())
+                .name(user.getName())
+                .contactInfo(user.getContactInfo())
+                .jobTitle(job.getJobTitle())
+                .description(job.getDescription())
+                .companyName(job.getCompanyName())
+                .build();
+//        Test test = new Test();
+//        test.setId(id);
+        this.jobProducer.sendApplicationMessage(userAndJob);
         return jobAppRes;
     }
+
 
     public String uploadResume(MultipartFile resume, Integer id) {
 

@@ -27,7 +27,7 @@ public class JobAppController {
         Integer jobId = jobApplicationRequest.getJobId();
 
 
-        if (resume.isEmpty()) {
+        if (resume == null) {
             throw new AppException(ErrorCode.UPLOAD_FILE_FAILED);
         }
 
