@@ -50,6 +50,7 @@ public class SecurityConfig {
             "/auth/**",
             "/user/**",
             "/job/search/**",
+            "/mail/**",
     };
 
     @Bean
