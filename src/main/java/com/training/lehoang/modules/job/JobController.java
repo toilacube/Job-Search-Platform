@@ -86,6 +86,7 @@ public class JobController {
             @RequestParam(required = false) String companyName,
             @RequestParam(required = false) String location
     ) {
+
         ArrayList<JobResponse> jobList = this.jobService.listJobUser(jobTitle, jobType, companyName, location);
         return ApiResponse.< ArrayList<JobResponse>>builder()
                 .data(jobList)
