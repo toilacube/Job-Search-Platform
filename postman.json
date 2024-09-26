@@ -1,0 +1,912 @@
+{
+  "info": {
+    "_postman_id": "b2166fce-b8a2-4e69-824f-b2bf5f53b762",
+    "name": "Spring Innotech",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "29780789"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admain@gmail.com\",\n    \"password\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/auth/login"
+          },
+          "response": [
+            {
+              "name": "user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"user@gmail.com\",\n    \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "http://localhost:8080/auth/login"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 25 Sep 2024 08:46:31 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGdtYWlsLmNvbSIsImV4cCI6MjMyNzI1MzkzMSwiaWF0IjoxNzI3MjUzOTkxLCJhdXRob3JpdGllcyI6WyJVU0VSIl19.X1uPkbNA6wwJj0ZO2BDLQJJDy66eg9G0h8h-S9m4-SE\"\n    }\n}"
+            },
+            {
+              "name": "admin",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "http://localhost:8080/auth/login"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 25 Sep 2024 09:02:16 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"adm123in@gmail.com\",\n  \"password\": \"3123223\",\n  \"name\": \"name\",\n  \"contactInfo\": \"111111\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/auth/register"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "get user info",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjczNDMyMDMsImlhdCI6MTcyNzM0MzI2MywiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.jYPQsvnw3Xn0Rkof_I-RIFcLw50odN7vpefAQUSjBhY"
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8080/user"
+          },
+          "response": [
+            {
+              "name": "get user info",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8080/user"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 26 Sep 2024 09:34:38 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"id\": 1,\n        \"email\": \"admin@gmail.com\",\n        \"name\": \"aaaaaaaaa\",\n        \"contactInfo\": \"66669999\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "udpate user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjIzMjcxNjgxNTEsInN1YiI6InN0cmluZ0BnbWFpbC5jb20iLCJpYXQiOjE3MjcxNjgyMTF9.WSbeCrLXrI8gKzcOVOSk9RWMSmQD6sUmnsS8_D1E3RY"
+              }
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"dddd1233d\",\n  \"name\": \"fffff\",\n  \"contactInfo\": \"acdfdf\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/user/1"
+          },
+          "response": []
+        },
+        {
+          "name": "upload resume",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjIzMjcxNjgxNTEsInN1YiI6InN0cmluZ0BnbWFpbC5jb20iLCJpYXQiOjE3MjcxNjgyMTF9.WSbeCrLXrI8gKzcOVOSk9RWMSmQD6sUmnsS8_D1E3RY"
+              }
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/home/toilacube/Downloads/1009JD intern back-end Nodejs.pdf"
+                }
+              ]
+            },
+            "url": "http://localhost:8080/user/resume"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "job listing",
+      "item": [
+        {
+          "name": "admin test",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmdAZ21haWwuY29tIiwiZXhwIjoyMzI3MjM4ODI4LCJpYXQiOjE3MjcyMzg4ODgsImF1dGhvcml0aWVzIjpbIkFETUlOIiwiVVNFUiJdfQ.jRdav2q5wan-wM8ObOJDfCTvbDTKocTUqp1I0PV5BxY"
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8080/jobList"
+          },
+          "response": []
+        },
+        {
+          "name": "get jobs of current recruiter",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk"
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8080/job"
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "http://localhost:8080/job"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 25 Sep 2024 09:02:31 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"jobTitle\": \"Software Engineer\",\n            \"jobType\": \"Full-time\",\n            \"description\": \"Develop and maintain web applications\",\n            \"companyName\": \"Tech Corp\",\n            \"location\": \"New York, NY\",\n            \"salary\": 120000\n        },\n        {\n            \"jobTitle\": \"Data Analyst\",\n            \"jobType\": \"Full-time\",\n            \"description\": \"Analyze data and provide insights for business decisions\",\n            \"companyName\": \"Data Solutions\",\n            \"location\": \"San Francisco, CA\",\n            \"salary\": 90000\n        },\n        {\n            \"jobTitle\": \"Project Manager\",\n            \"jobType\": \"Full-time\",\n            \"description\": \"Manage project timelines and ensure client satisfaction\",\n            \"companyName\": \"Consulting Inc\",\n            \"location\": \"Chicago, IL\",\n            \"salary\": 110000\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "new job",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk"
+              }
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobTitle\": \"jobTitle\",\n  \"jobDescription\": \"abcccccc\",\n  \"companyName\": \"Innotech\",\n  \"location\": \"gan san bay\",\n  \"salary\": 99999999,\n  \"jobType\": \"Part-time\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/job"
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobTitle\": \"jobTitle\",\n  \"jobDescription\": \"abcccccc\",\n  \"companyName\": \"Innotech\",\n  \"location\": \"gan san bay\",\n  \"salary\": 99999999,\n  \"jobType\": \"Part-time\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "http://localhost:8080/job"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 25 Sep 2024 09:32:22 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"jobTitle\": \"jobTitle\",\n        \"jobType\": \"Part-time\",\n        \"description\": \"abcccccc\",\n        \"companyName\": \"Innotech\",\n        \"location\": \"gan san bay\",\n        \"salary\": 99999999\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "update job",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk"
+              }
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "http://localhost:8080/job/2"
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobTitle\": \"jobTitle\",\n  \"jobDescription\": \"abcccccc\",\n  \"companyName\": \"Innotech\",\n  \"location\": \"gan san bay\",\n  \"salary\": 99999999,\n  \"jobType\": \"Part-time\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "http://localhost:8080/job/2"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 25 Sep 2024 09:46:01 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": \"Job updated successfully\",\n    \"data\": {\n        \"jobTitle\": \"jobTitle\",\n        \"jobType\": \"Full-time\",\n        \"description\": \"abcccccc\",\n        \"companyName\": \"Innotech\",\n        \"location\": \"gan san bay\",\n        \"salary\": 99999999\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete job",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk"
+              }
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:8080/job/3"
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:8080/job/3"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 25 Sep 2024 10:25:00 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": \"Job deleted successfully\",\n    \"data\": {\n        \"jobTitle\": \"jobTitle\",\n        \"jobType\": \"Full-time\",\n        \"description\": \"abcccccc\",\n        \"companyName\": \"Innotech\",\n        \"location\": \"gan san bay\",\n        \"salary\": 99999999\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "job search",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk"
+              }
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/job/search?jobTitle=Software ",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "job",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "jobTitle",
+                  "value": "Software "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "job search",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/job/search?jobTitle=Software ",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "job",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "jobTitle",
+                      "value": "Software "
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 26 Sep 2024 09:34:04 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"jobTitle\": \"Software Engineer\",\n            \"jobType\": \"Full-time\",\n            \"description\": \"Develop and maintain web applications\",\n            \"companyName\": \"Tech Corp\",\n            \"location\": \"New York, NY\",\n            \"salary\": 120000\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "job application",
+      "item": [
+        {
+          "name": "job application",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk"
+              }
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "resume",
+                  "type": "file",
+                  "src": "/home/toilacube/Downloads/1009JD intern back-end Nodejs.pdf"
+                },
+                {
+                  "key": "coverLetter",
+                  "value": "final",
+                  "type": "text"
+                },
+                {
+                  "key": "jobId",
+                  "value": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "http://localhost:8080/application"
+          },
+          "response": [
+            {
+              "name": "job application",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "resume",
+                      "type": "file",
+                      "src": "/home/toilacube/Downloads/1009JD intern back-end Nodejs.pdf"
+                    },
+                    {
+                      "key": "coverLetter",
+                      "value": "final",
+                      "type": "text"
+                    },
+                    {
+                      "key": "jobId",
+                      "value": "1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": "http://localhost:8080/application"
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 26 Sep 2024 08:55:46 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": 200,\n    \"message\": \"Application sent successfully\",\n    \"data\": {\n        \"resumeUrl\": \"https://res.cloudinary.com/dshmssb6c/image/upload/UserId:1_resume53097416-6a25-4fb5-9aa0-26fc61aaf62f.pdf\",\n        \"coverLetter\": \"final\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "test",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:8080/test"
+      },
+      "response": []
+    }
+  ]
+}
