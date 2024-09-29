@@ -19,7 +19,7 @@ public interface JobRepo extends JpaRepository<Job, Integer> {
             "(:jobType IS NULL OR j.jobType = :jobType) AND " +
             "(:companyName IS NULL OR j.companyName LIKE %:companyName%) AND " +
             "(:location IS NULL OR j.location LIKE %:location%)")
-    ArrayList<Job> findByFilters(@Param("jobTitle") String jobTitle,
+    ArrayList<Job> findByFiltersAndIsDeletedIsFalse(@Param("jobTitle") String jobTitle,
                                          @Param("jobType") String jobType,
                                          @Param("companyName") String companyName,
                                          @Param("location") String location);

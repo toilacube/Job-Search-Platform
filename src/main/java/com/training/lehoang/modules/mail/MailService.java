@@ -51,7 +51,7 @@ public class MailService {
                         email = DefaultEmail.builder()
                                 .from(new InternetAddress("151115rubikcube@gmail.com", "Innotech VN"))
                                 .to(Lists.newArrayList(new InternetAddress(tyrannicida.getEmail(), tyrannicida.getName())))
-                                .subject("Cover letter: ")
+                                .subject("New application of " + userAndJob.getJobTitle() + " from " + userAndJob.getCompanyName())
                                 .body("")//Empty body
                                 .encoding("UTF-8").build();
                     } catch (UnsupportedEncodingException e) {

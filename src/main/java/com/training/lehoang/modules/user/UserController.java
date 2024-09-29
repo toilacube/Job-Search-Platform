@@ -2,6 +2,7 @@ package com.training.lehoang.modules.user;
 
 import com.training.lehoang.dto.request.UpdateUserRequest;
 import com.training.lehoang.dto.response.ApiResponse;
+import com.training.lehoang.dto.response.ResumeResponse;
 import com.training.lehoang.dto.response.UserResponse;
 import com.training.lehoang.entity.User;
 import com.training.lehoang.exception.AppException;
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping(path ="/resume",  consumes = {MULTIPART_FORM_DATA_VALUE})
-    public ApiResponse<String> uploadResume(@RequestParam("file") MultipartFile file) {
+    public ApiResponse<ResumeResponse> uploadResume(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             throw new AppException(ErrorCode.UPLOAD_FILE_FAILED);
         }
@@ -65,7 +66,7 @@ public class UserController {
             // You can write the file to the filesystem or database here
             String res = this.userService.uploadResume(file);
 
-            return ApiResponse.<String>builder().message(res).build();
+            return ApiResponse.<ResumeResponse>builder().data(ResumeResponse.builder().url(res).build()).build();
         } catch (IOException e) {
             throw new AppException(ErrorCode.UPLOAD_FILE_FAILED);
         }

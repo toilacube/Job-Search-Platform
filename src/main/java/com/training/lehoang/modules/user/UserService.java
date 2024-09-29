@@ -42,18 +42,20 @@ public class UserService {
 
     public UserResponse updateUser(int id, UpdateUserRequest updateUserRequest){
         String userEmail = this.getEmail();
+        System.out.println(userEmail);
+
         User user = this.findByEmail(userEmail);
 
         // Check if the id of from the request is the same from user in the token
 
         if (id != user.getId()){
-            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
+            throw new AppException(ErrorCode.UNAUTHORIZED);
         }
 
-        User checkUser = this.findByEmail(updateUserRequest.email());
+        Boolean checkUser = userRepo.existsByEmail(updateUserRequest.email());
         // if id == checkUser.getid then user is not updating the email
         // if id != checkUser.getid then user is updating the email but already existed
-        if (id != checkUser.getId()){
+        if (checkUser){
             throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
 
@@ -97,7 +99,7 @@ public class UserService {
             user.setResumeUrl(link);
             this.userRepo.save(user);
 
-            return "File uploaded successfully: " + link;
+            return link;
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

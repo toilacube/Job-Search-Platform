@@ -6,9 +6,14 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.training.lehoang.dto.request.AuthRequest;
 import com.training.lehoang.dto.request.RegisterRequest;
 import com.training.lehoang.dto.response.AuthResponse;
+import com.training.lehoang.entity.Role;
+import com.training.lehoang.entity.RoleEnum;
 import com.training.lehoang.entity.User;
+import com.training.lehoang.entity.UsersRole;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
+import com.training.lehoang.modules.role.RoleRepo;
+import com.training.lehoang.modules.role.UsersRolesRepo;
 import com.training.lehoang.modules.user.CustomUserDetails;
 import com.training.lehoang.modules.user.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +44,8 @@ import org.springframework.security.core.GrantedAuthority;
 public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
-
+    private final RoleRepo roleRepo;
+    private final UsersRolesRepo usersRolesRepo;
     @Value("${jwt.secret}")
     private String secretKey;
 
@@ -58,8 +64,17 @@ public class AuthService {
         user.setEmail(email);
         user.setContactInfo(registerRequest.getContactInfo());
         user.setName(registerRequest.getName());
-
         User newUser = this.userRepo.save(user);
+
+        Role userRole = roleRepo.findByName(RoleEnum.USER.name());
+
+        System.out.println(userRole.toString());
+
+        UsersRole usersRole = new UsersRole();
+        usersRole.setUser(newUser);
+        usersRole.setRole(userRole);
+        usersRolesRepo.save(usersRole);
+
 
         Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(newUser.getEmail(), password);
 

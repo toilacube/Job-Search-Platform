@@ -15,8 +15,8 @@ import java.time.Instant;
 @Table(name = "\"jobApplications\"")
 public class JobApplication {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @SequenceGenerator(name = "jobApplications_id_gen", sequenceName = "jobApplications_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jobApplications_id_gen")
+    @SequenceGenerator(name = "jobApplications_id_gen", sequenceName = "jobApplications_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 

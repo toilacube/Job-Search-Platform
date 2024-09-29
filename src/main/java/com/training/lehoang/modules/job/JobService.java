@@ -66,9 +66,9 @@ public class JobService {
     }
     public ArrayList<JobResponse> listJobUser(String jobTitle, String jobType, String companyName, String location) {
         ArrayList<JobResponse> jobResponses = new ArrayList<>();
-        ArrayList<Job> jobs = new ArrayList<>();
+        ArrayList<Job> jobs;
         if (jobTitle != null || jobType != null || companyName != null || location != null) {
-            jobs = jobRepo.findByFilters(jobTitle, jobType, companyName, location);
+            jobs = jobRepo.findByFiltersAndIsDeletedIsFalse(jobTitle, jobType, companyName, location);
         }
         else {
             jobs = this.jobRepo.findAllByIsDeletedIsFalse();

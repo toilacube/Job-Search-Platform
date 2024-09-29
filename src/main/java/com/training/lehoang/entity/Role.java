@@ -14,7 +14,8 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role {
     @Id
-    @ColumnDefault("nextval('roles_id_seq')")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_id_gen")
+    @SequenceGenerator(name = "roles_id_gen", sequenceName = "roles_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 
