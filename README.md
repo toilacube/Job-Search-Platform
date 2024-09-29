@@ -14,24 +14,23 @@ Email: `user@gmail.com` Password: `string`
 
 **Admin account:** Email: `admin@gmail.com` Password: `string`
 ## How to run
+**Open terminal**
 ```
 git clone .....
 cd ....
 ```
-### Start docker compose
+**Start docker compose**
+
 postgres will run in port `5430` and rabbitmq will run in port `5672` and `15672` 
 ```
 docker compose up -d
 ```
 
-**If you are using Intellij or VScode, just select required JDK version and run**
+**Remember to use JDK 17 or higher**
 
-**For terminal only:**
-
-Make sure to have [mvn](https://maven.apache.org/install.html) installed and Java version 17 or higher
-
+****
 
 ```
-mvn spring:build
+./mvnw spring-boot:run
 ```
 
