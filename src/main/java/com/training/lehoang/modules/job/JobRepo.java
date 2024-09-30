@@ -23,4 +23,9 @@ public interface JobRepo extends JpaRepository<Job, Integer> {
                                          @Param("jobType") String jobType,
                                          @Param("companyName") String companyName,
                                          @Param("location") String location);
+
+
+    @Query(value = "SELECT * FROM job WHERE to_tsvector('english', description) @@ to_tsquery(:skills)", nativeQuery = true)
+    ArrayList<Job> findJobsBySkills(@Param("skills") String skills);
+
 }

@@ -1,9 +1,8 @@
 package com.training.lehoang.modules.user;
 
+import com.training.lehoang.dto.request.SkillRequest;
 import com.training.lehoang.dto.request.UpdateUserRequest;
-import com.training.lehoang.dto.response.ApiResponse;
-import com.training.lehoang.dto.response.ResumeResponse;
-import com.training.lehoang.dto.response.UserResponse;
+import com.training.lehoang.dto.response.*;
 import com.training.lehoang.entity.User;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
@@ -12,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
-
 
 /*
 *
@@ -48,11 +47,12 @@ public class UserController {
     }
 
     @PatchMapping("{id}")
-    public ApiResponse<UserResponse> updateUser(@PathVariable int id, @RequestBody UpdateUserRequest updateUserRequest) {
+    public ApiResponse<UserResponse> updateUser(@PathVariable int id,
+            @RequestBody UpdateUserRequest updateUserRequest) {
         return ApiResponse.<UserResponse>builder().data(this.userService.updateUser(id, updateUserRequest)).build();
     }
 
-    @PostMapping(path ="/resume",  consumes = {MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(path = "/resume", consumes = { MULTIPART_FORM_DATA_VALUE })
     public ApiResponse<ResumeResponse> uploadResume(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             throw new AppException(ErrorCode.UPLOAD_FILE_FAILED);
@@ -60,7 +60,8 @@ public class UserController {
 
         try {
             // Get the file's original name
-            String fileName = file.getOriginalFilename();;
+            String fileName = file.getOriginalFilename();
+            ;
             // Do something with the file (e.g., save it to the server)
             byte[] bytes = file.getBytes();
             // You can write the file to the filesystem or database here
@@ -70,8 +71,21 @@ public class UserController {
         } catch (IOException e) {
             throw new AppException(ErrorCode.UPLOAD_FILE_FAILED);
         }
+    }
 
+    @PostMapping("/skill")
+    public ApiResponse<ArrayList<SkillResponse>> addSkills (@RequestBody SkillRequest skillRequest) {
+        return ApiResponse.<ArrayList<SkillResponse>>builder().data(this.userService.addSkill(skillRequest)).build();
+    }
 
+    @GetMapping("/skill")
+    public ApiResponse<ArrayList<SkillResponse>> getSkills() {
+        return ApiResponse.<ArrayList<SkillResponse>>builder().data(this.userService.getSkills()).build();
+    }
+
+    @GetMapping("/job")
+    public  ApiResponse<ArrayList<JobResponse>> getJobRecommendation() {
+        return ApiResponse.<ArrayList<JobResponse>>builder().data(this.userService.getJobRecommendation()).build();
     }
 
 
@@ -80,4 +94,3 @@ public class UserController {
         return this.userService.test();
     }
 }
-

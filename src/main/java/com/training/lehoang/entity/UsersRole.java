@@ -13,7 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 public class UsersRole {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersRoles_id_gen")
-    @SequenceGenerator(name = "usersRoles_id_gen", sequenceName = "usersRoles_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "usersRoles_id_gen", sequenceName = "usersroles_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 

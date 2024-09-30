@@ -16,7 +16,7 @@ import java.time.Instant;
 public class JobApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jobApplications_id_gen")
-    @SequenceGenerator(name = "jobApplications_id_gen", sequenceName = "jobApplications_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "jobApplications_id_gen", sequenceName = "jobapplications_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 

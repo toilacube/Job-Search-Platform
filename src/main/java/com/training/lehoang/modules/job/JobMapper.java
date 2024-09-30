@@ -23,6 +23,7 @@ public class JobMapper {
         return job;
     }
 
+    // Convert job to job response object
     public JobResponse toJobResponse(Job job) {
         return JobResponse.builder()
                 .salary(job.getSalary())

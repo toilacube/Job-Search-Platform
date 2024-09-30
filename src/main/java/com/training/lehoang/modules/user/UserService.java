@@ -2,13 +2,19 @@ package com.training.lehoang.modules.user;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.training.lehoang.dto.request.SkillRequest;
 import com.training.lehoang.dto.request.UpdateUserRequest;
+import com.training.lehoang.dto.response.JobResponse;
+import com.training.lehoang.dto.response.SkillResponse;
 import com.training.lehoang.dto.response.UserResponse;
-import com.training.lehoang.entity.Role;
-import com.training.lehoang.entity.User;
-import com.training.lehoang.entity.UsersRole;
+import com.training.lehoang.entity.*;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
+import com.training.lehoang.modules.job.JobMapper;
+import com.training.lehoang.modules.job.JobRepo;
+import com.training.lehoang.modules.skill.SkillRepo;
+import com.training.lehoang.modules.skill.UserSkillRepo;
+
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,13 +29,17 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepo userRepo;
-
+    private final SkillRepo skillRepo;
+    private final UserSkillRepo userSkillRepo;
+    private final JobRepo jobRepo;
+    private final JobMapper jobMapper;
 
     public String getEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -106,6 +116,77 @@ public class UserService {
         }
 
         return "ok";
+    }
+
+
+    public ArrayList<SkillResponse> addSkill(SkillRequest skillRequest){
+
+        ArrayList<SkillResponse> skillResponses = new ArrayList<>();
+
+        User user = this.findByEmail(getEmail());
+        ArrayList<Skill> newSkills = this.skillRepo.findByIdIn(skillRequest.getSkills());
+
+        if (newSkills.size() != skillRequest.getSkills().size()){
+            throw new AppException(ErrorCode.SKILL_NOT_EXISTED);
+        }
+        
+        // check if there are any duplicate skills and then
+         // add new skills to the user using userskill
+        ArrayList<UsersSkill> userSkills = this.userSkillRepo.findAllByUser(user);
+        ArrayList<Skill> currentSkills = userSkills.stream()
+                                    .map(UsersSkill::getSkill)
+                                    .collect(Collectors.toCollection(ArrayList::new));
+        
+        for (Skill skill : newSkills){
+            if (!currentSkills.contains(skill)){
+                UsersSkill usersSkill = new UsersSkill();
+                usersSkill.setUser(user);
+                usersSkill.setSkill(skill);
+                userSkills.add(usersSkill);
+                this.userSkillRepo.save(usersSkill);
+
+                SkillResponse skillResponse = SkillResponse.builder()
+                        .id(skill.getId())
+                        .name(skill.getName())
+                        .build();
+
+                skillResponses.add(skillResponse);
+            }
+        }
+
+        return skillResponses;
+
+    }
+
+
+    public ArrayList<SkillResponse> getSkills(){
+        User user = this.findByEmail(getEmail());
+        ArrayList<UsersSkill> userSkills = this.userSkillRepo.findAllByUser(user);
+        ArrayList<SkillResponse> skillResponses = new ArrayList<>();
+
+        userSkills.forEach(usersSkill -> {
+            Skill skill = usersSkill.getSkill();
+            SkillResponse skillResponse = SkillResponse.builder()
+                    .id(skill.getId())
+                    .name(skill.getName())
+                    .build();
+            skillResponses.add(skillResponse);
+        });
+
+        return skillResponses;
+    }
+
+    public  ArrayList<JobResponse> getJobRecommendation(){
+        ArrayList<SkillResponse> skills = this.getSkills();
+        String skills_string = skills.stream()
+                .map(SkillResponse::getName)
+                .collect(Collectors.joining(" | "));
+        ArrayList<Job> jobs = this.jobRepo.findJobsBySkills(skills_string);
+        ArrayList<JobResponse> jobResponses = new ArrayList<>();
+        jobs.forEach(job -> {
+            jobResponses.add(jobMapper.toJobResponse(job));
+        });
+        return jobResponses;
     }
 
 

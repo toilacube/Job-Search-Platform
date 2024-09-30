@@ -18,6 +18,8 @@ public enum ErrorCode {
     EMAIL_ALREADY_EXISTS( "Email already exists", HttpStatus.BAD_REQUEST),
     UPLOAD_FILE_FAILED( "Upload file failed", HttpStatus.INTERNAL_SERVER_ERROR),
     JOB_NOT_FOUND( "Job not found", HttpStatus.NOT_FOUND),
+    SKILL_NOT_EXISTED( "Skill not existed", HttpStatus.BAD_REQUEST),
+    SKILL_EXISTED( "Skill existed", HttpStatus.BAD_REQUEST),
     ;
     private final String message;
     private final HttpStatusCode statusCode;

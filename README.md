@@ -1,4 +1,5 @@
-When update email, user have to login again?
+## Note
+The job recommendation in task 6 was built using the **Full text search** feature from posgresql.
 
 ## Requirements
 - JDK 17 or higher
