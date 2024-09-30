@@ -20,6 +20,8 @@ public enum ErrorCode {
     JOB_NOT_FOUND( "Job not found", HttpStatus.NOT_FOUND),
     SKILL_NOT_EXISTED( "Skill not existed", HttpStatus.BAD_REQUEST),
     SKILL_EXISTED( "Skill existed", HttpStatus.BAD_REQUEST),
+    APPLICATION_NOT_FOUND( "Application not found", HttpStatus.BAD_REQUEST),
+    NO_APPLICATION_FOUND( "No application found", HttpStatus.NOT_FOUND),
     ;
     private final String message;
     private final HttpStatusCode statusCode;

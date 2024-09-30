@@ -1,10 +1,6 @@
 package com.training.lehoang.modules.mail;
 
 import com.google.common.collect.Lists;
-import com.training.lehoang.dto.response.JobApplicationResponse;
-import com.training.lehoang.entity.Job;
-import com.training.lehoang.entity.Test;
-import com.training.lehoang.entity.User;
 import it.ozimov.springboot.mail.model.Email;
 import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
 import it.ozimov.springboot.mail.service.EmailService;

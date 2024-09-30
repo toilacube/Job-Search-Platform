@@ -82,6 +82,14 @@ CREATE TABLE "jobApplications" (
                                    FOREIGN KEY ("jobId") REFERENCES "job"(id) ON DELETE CASCADE
 );
 
+CREATE SEQUENCE appCmt_id_seq START WITH 1 INCREMENT BY 1;
+
+create table "appCmt" (
+    id int primary key default nextval('appCmt_id_seq'),
+    "applicationId" int,
+    "comment" text
+);
+
 -- Insert initial users
 INSERT INTO users (email, "passwordHash", name, "contactInfo")
 VALUES

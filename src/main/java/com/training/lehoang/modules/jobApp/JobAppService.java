@@ -47,6 +47,7 @@ public class JobAppService {
         jobAppRepo.save(jobApplication);
 
         JobApplicationResponse jobAppRes = JobApplicationResponse.builder()
+                .id(jobApplication.getId())
                 .coverLetter(coverLetter)
                 .resumeUrl(resumeUrl)
                 .build();

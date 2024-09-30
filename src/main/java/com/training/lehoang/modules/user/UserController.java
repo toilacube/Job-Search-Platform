@@ -3,9 +3,12 @@ package com.training.lehoang.modules.user;
 import com.training.lehoang.dto.request.SkillRequest;
 import com.training.lehoang.dto.request.UpdateUserRequest;
 import com.training.lehoang.dto.response.*;
+import com.training.lehoang.entity.Feedback;
+import com.training.lehoang.entity.JobApplication;
 import com.training.lehoang.entity.User;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
+import com.training.lehoang.modules.jobApp.JobAppRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -88,6 +91,12 @@ public class UserController {
         return ApiResponse.<ArrayList<JobResponse>>builder().data(this.userService.getJobRecommendation()).build();
     }
 
+    @GetMapping("/feedback")
+    public ApiResponse<ArrayList<UserFeedbackResponse>> getApplicationFeedback() {
+        User user = this.userService.getUser();
+        ArrayList<UserFeedbackResponse> feedbacks = this.userService.getApplicationFeedback(user.getId());
+        return ApiResponse.<ArrayList<UserFeedbackResponse>>builder().data(feedbacks).build();
+    }
 
     @GetMapping("/test")
     public String test() {

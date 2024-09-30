@@ -4,6 +4,7 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSObject;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
+import com.training.lehoang.entity.RoleEnum;
 import com.training.lehoang.modules.user.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +41,7 @@ public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
 
     private static final String[] ADMIN_MATCHERS ={
-            "/job/**", "/test/**"
+            "/job/**", "/test/**" , "/feedback/**"
     };
 
     private static final String[] PUBLIC_MATCHERS = {
@@ -61,7 +62,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         request
                                 .requestMatchers(PUBLIC_MATCHERS).permitAll()
-                                .requestMatchers(ADMIN_MATCHERS).hasRole("ADMIN")
+                                .requestMatchers(ADMIN_MATCHERS).hasRole(RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated()
 
                                 )

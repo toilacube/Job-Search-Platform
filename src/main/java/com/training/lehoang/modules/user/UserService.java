@@ -4,14 +4,14 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.training.lehoang.dto.request.SkillRequest;
 import com.training.lehoang.dto.request.UpdateUserRequest;
-import com.training.lehoang.dto.response.JobResponse;
-import com.training.lehoang.dto.response.SkillResponse;
-import com.training.lehoang.dto.response.UserResponse;
+import com.training.lehoang.dto.response.*;
 import com.training.lehoang.entity.*;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
+import com.training.lehoang.modules.feedback.FeedbackRepo;
 import com.training.lehoang.modules.job.JobMapper;
 import com.training.lehoang.modules.job.JobRepo;
+import com.training.lehoang.modules.jobApp.JobAppRepo;
 import com.training.lehoang.modules.skill.SkillRepo;
 import com.training.lehoang.modules.skill.UserSkillRepo;
 
@@ -40,6 +40,9 @@ public class UserService {
     private final UserSkillRepo userSkillRepo;
     private final JobRepo jobRepo;
     private final JobMapper jobMapper;
+    private final JobAppRepo jobAppRepo;
+    private final FeedbackRepo feedbackRepo;
+
 
     public String getEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -187,6 +190,32 @@ public class UserService {
             jobResponses.add(jobMapper.toJobResponse(job));
         });
         return jobResponses;
+    }
+
+    public ArrayList<UserFeedbackResponse> getApplicationFeedback(int userid){
+        ArrayList<JobApplication> jobApplications = this.jobAppRepo.findByUserId(userid);
+        if (jobApplications.isEmpty()){
+            throw new AppException(ErrorCode.NO_APPLICATION_FOUND);
+        }
+
+        ArrayList<UserFeedbackResponse> userFeedbackResponses = new ArrayList<>();
+        for (JobApplication jobApplication : jobApplications){
+
+            Feedback fb = this.feedbackRepo.findFirstByApplicationId(jobApplication.getId());
+            JobApplicationResponse jobAppRes = JobApplicationResponse.builder()
+                    .id(jobApplication.getId())
+                    .coverLetter(jobApplication.getCoverLetter())
+                    .resumeUrl(jobApplication.getResumeUrl())
+                    .build();
+
+
+            UserFeedbackResponse temp = UserFeedbackResponse.builder()
+                    .jobApplication(jobAppRes)
+                    .feedback(fb)
+                    .build();
+            userFeedbackResponses.add(temp);
+        }
+        return userFeedbackResponses;
     }
 
 
