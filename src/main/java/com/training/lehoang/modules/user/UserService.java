@@ -218,6 +218,12 @@ public class UserService {
         return userFeedbackResponses;
     }
 
+    public void set2FA(int isEnable){
+        User user = this.findByEmail(getEmail());
+        user.setIs2FA(isEnable == 1);
+        this.userRepo.save(user);
+    }
+
 
     public String test(){
         User user = this.findByEmail(getEmail());

@@ -22,6 +22,8 @@ public enum ErrorCode {
     SKILL_EXISTED( "Skill existed", HttpStatus.BAD_REQUEST),
     APPLICATION_NOT_FOUND( "Application not found", HttpStatus.BAD_REQUEST),
     NO_APPLICATION_FOUND( "No application found", HttpStatus.NOT_FOUND),
+    UNKNOWN_ERROR( "Unknown error", HttpStatus.INTERNAL_SERVER_ERROR),
+    INVALID_OTP("Invalid OTP", HttpStatus.BAD_REQUEST),
     ;
     private final String message;
     private final HttpStatusCode statusCode;

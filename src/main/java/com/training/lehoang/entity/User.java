@@ -3,6 +3,7 @@ package com.training.lehoang.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -35,5 +36,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<UsersRole> usersRoles = new LinkedHashSet<>();
+
+    @ColumnDefault("false")
+    @Column(name = "\"is2FA\"")
+    private Boolean is2FA;
 
 }

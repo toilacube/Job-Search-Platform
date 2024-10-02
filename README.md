@@ -1,11 +1,19 @@
 ## Note
 The job recommendation in task 6 was built using the **Full text search** feature from posgresql.
 
+The 2FA service workflow:
+![](./2fa.png)
+
+
 ## Requirements
 - JDK 17 or higher
 
 ## Usage
-If you want to test the RabbitMQ email service, go to `application.yml` and replace your email in order to receive the notificaiton:
+If you want to: 
+    - Test the RabbitMQ email service
+    - Test the Email based 2FA service
+
+go to `application.yml` and replace your email in order to receive the notificaiton:
 ```
 test:
     email: youremail@gmail.com

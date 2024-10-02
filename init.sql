@@ -22,7 +22,8 @@ CREATE TABLE users (
                        "passwordHash" VARCHAR(255) NOT NULL,  -- Storing the hash of the password
                        name VARCHAR(255) NOT NULL,
                        "contactInfo" VARCHAR(255),
-                       "resumeUrl" VARCHAR(255)
+                       "resumeUrl" VARCHAR(255),
+                        "is2FA" boolean default false
 );
 
 -- Create roles table
@@ -87,7 +88,8 @@ CREATE SEQUENCE appCmt_id_seq START WITH 1 INCREMENT BY 1;
 create table "appCmt" (
     id int primary key default nextval('appCmt_id_seq'),
     "applicationId" int,
-    "comment" text
+    "comment" text,
+    foreign key ("applicationId") references "jobApplications"(id)
 );
 
 -- Insert initial users

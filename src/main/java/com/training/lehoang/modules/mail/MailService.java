@@ -11,6 +11,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,7 +28,19 @@ public class MailService {
 
     @Value("${test.email}")
     private String recruiterEmail;
-    
+
+    @Async
+    public void sendOtpWithMail(String userMail, int otp) throws MessagingException, UnsupportedEncodingException {
+        final Email email = DefaultEmail.builder()
+                .from(new InternetAddress("21520870@gm.uit.edu.vn", "Project"))
+                .to(Lists.newArrayList(new InternetAddress(recruiterEmail, "Helloooooo"))) // recruiterEmail should be replaced by userMail, this is just for testing
+                .subject("Your OTP confirmation")
+                .body("Your OTP: " + otp)
+                .encoding("UTF-8").build();
+
+        MimeMessage m = this.emailService.send(email);
+    }
+
     public void sendEmailWithOutTemplating(UserAndJob user) throws IOException, MessagingException {
         final Email email = DefaultEmail.builder()
                 .from(new InternetAddress("21520870@gm.uit.edu.vn", "Marco Tullio Cicerone "))
@@ -37,8 +50,8 @@ public class MailService {
                 .encoding("UTF-8").build();
 
         MimeMessage m = this.emailService.send(email);
-        System.out.println(m.getContent());
     }
+
     public void sendEmailWithTemplating(UserAndJob userAndJob){
         Arrays.asList(new Cospirator("nguyensylehoang@gmail.com", "There is a new Application, Check this out"))
                 .forEach(tyrannicida -> {
