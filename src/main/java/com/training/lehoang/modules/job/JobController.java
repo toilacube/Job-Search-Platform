@@ -92,4 +92,16 @@ public class JobController {
                 .data(jobList)
                 .build();
     }
+
+    @PostMapping("/save/{jobId}")
+    public ApiResponse<JobResponse> saveJob(@PathVariable Integer jobId) {
+        User user = this.userService.getUser();
+        Job job = this.jobService.getJob(jobId);
+        JobResponse jobRes = this.jobService.makeSavedJob(user, job);
+        return ApiResponse.<JobResponse>builder()
+                .data(jobRes)
+                .message("Job saved successfully")
+                .build();
+    }
+    
 }

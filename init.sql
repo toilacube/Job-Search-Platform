@@ -67,8 +67,20 @@ CREATE TABLE "job" (
                        location VARCHAR(255),
                        salary DECIMAL(15, 2),
                        "jobType" VARCHAR(50),  -- Full-time or part-time
+                        "expiryDate" timestamp,
                        "isDeleted" boolean DEFAULT false,
                        FOREIGN KEY ("recruiterId") REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Create savedJobs table
+create sequence savedJobs_id_seq start with 1 increment by 1;
+CREATE table "savedJobs" (
+    "id"INT PRIMARY KEY DEFAULT nextval('savedJobs_id_seq'),
+    "userId" int,
+    "jobId" int,
+    "isApplied" boolean default false,  
+    foreign key ("userId") references users(id) on delete cascade,
+    foreign key ("jobId") references "job"(id) on delete cascade
 );
 
 -- Create jobApplications table
@@ -105,11 +117,11 @@ INSERT INTO roles (name) VALUES ('ADMIN'), ('USER');
 INSERT INTO "usersRoles" ("userId", "roleId") VALUES (1, 1), (2, 2), (1, 2);
 
 -- Insert initial jobs
-INSERT INTO "job" ("recruiterId", "jobTitle", description, "companyName", location, salary, "jobType", "isDeleted")
+INSERT INTO "job" ("recruiterId", "jobTitle", description, "companyName", location, salary, "jobType", "isDeleted", "expiryDate")
 VALUES
-    (1, 'Software Engineer', 'Current students pursuing Bachelor ''s degree program or above who are in 3rd or 4th year or fresh graduates. Had excellent knowledge of Software Engineering fundamentals (Data Structure, Algorithms). Experience with one or more programming languages (e.g., Java, C/C++, C#, Objective-C, Python, JavaScript, Go, etc.).', 'Tech Corp', 'New York, NY', 120000.00, 'Full-time', false),
-    (1, 'Data Analyst', 'Analyze data and provide insights for business decisions', 'Data Solutions', 'San Francisco, CA', 90000.00, 'Full-time', false),
-    (1, 'Project Manager', 'Manage project timelines and ensure client satisfaction', 'Consulting Inc', 'Chicago, IL', 110000.00, 'Full-time', false);
+    (1, 'Software Engineer', 'Current students pursuing Bachelor ''s degree program or above who are in 3rd or 4th year or fresh graduates. Had excellent knowledge of Software Engineering fundamentals (Data Structure, Algorithms). Experience with one or more programming languages (e.g., Java, C/C++, C#, Objective-C, Python, JavaScript, Go, etc.).', 'Tech Corp', 'New York, NY', 120000.00, 'Full-time', false, '2024-11-01 00:00:00'),
+    (1, 'Data Analyst', 'Analyze data and provide insights for business decisions', 'Data Solutions', 'San Francisco, CA', 90000.00, 'Full-time', false, '2024-10-31 00:00:00'),
+    (1, 'Project Manager', 'Manage project timelines and ensure client satisfaction', 'Consulting Inc', 'Chicago, IL', 110000.00, 'Full-time', false, '2024-11-15 00:00:00');
 
 -- Insert some skills
 INSERT INTO skills (name) VALUES

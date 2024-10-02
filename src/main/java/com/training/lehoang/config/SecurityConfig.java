@@ -44,6 +44,10 @@ public class SecurityConfig {
             "/job/**", "/test/**" , "/feedback/**"
     };
 
+    private static final String[] USER_MATCHERS ={
+        "/job/save/**",
+    };
+
     private static final String[] PUBLIC_MATCHERS = {
             // /error because So. whenever an exception is thrown and it is not handled by
             // any @ExceptionHandler annotated method, then Spring boot will call this endpoint (/error)
@@ -62,6 +66,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         request
                                 .requestMatchers(PUBLIC_MATCHERS).permitAll()
+                                .requestMatchers(USER_MATCHERS).hasRole(RoleEnum.USER.name())
                                 .requestMatchers(ADMIN_MATCHERS).hasRole(RoleEnum.ADMIN.name())
                                 .anyRequest().authenticated()
 

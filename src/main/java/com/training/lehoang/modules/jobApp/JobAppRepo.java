@@ -11,4 +11,6 @@ public interface JobAppRepo extends JpaRepository<JobApplication, Integer> {
 
         Optional<JobApplication> findFirstByJobId(Integer jobId);
         ArrayList<JobApplication> findByUserId(Integer userId);
+
+        Boolean existsByJobIdAndUserId(Integer jobId, Integer userId);
 }

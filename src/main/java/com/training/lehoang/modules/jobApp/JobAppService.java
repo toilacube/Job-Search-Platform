@@ -5,9 +5,11 @@ import com.cloudinary.utils.ObjectUtils;
 import com.training.lehoang.dto.response.JobApplicationResponse;
 import com.training.lehoang.entity.Job;
 import com.training.lehoang.entity.JobApplication;
+import com.training.lehoang.entity.SavedJob;
 import com.training.lehoang.entity.Test;
 import com.training.lehoang.entity.User;
 import com.training.lehoang.modules.job.JobRepo;
+import com.training.lehoang.modules.job.SavedJobRepo;
 import com.training.lehoang.modules.mail.UserAndJob;
 import com.training.lehoang.modules.rabbitmq.JobProducer;
 import com.training.lehoang.modules.rabbitmq.RabbitMQConfig;
@@ -31,6 +33,19 @@ public class JobAppService {
     private final UserService userService;
     private final JobRepo jobRepo;
     private final JobProducer jobProducer;
+    private final SavedJobRepo savedJobRepo;
+
+    public void checkJobInSavedJob(Job job, User user) {
+        Boolean exists = savedJobRepo.existsByJobIdAndUserId(job.getId(), user.getId());
+        if (exists) {
+              // Make isApplied in SavedJob true
+        SavedJob savedJob = savedJobRepo.findByJobIdAndUserId(job.getId(), user.getId());
+        savedJob.setIsApplied(true);
+        savedJobRepo.save(savedJob);
+        return;
+        }
+      
+    }
 
     public JobApplicationResponse sendApplication(Integer jobId, MultipartFile resume, String coverLetter) {
         Job job = jobRepo.findById(jobId).orElse(null);
@@ -45,6 +60,8 @@ public class JobAppService {
         jobApplication.setCoverLetter(coverLetter);
         jobApplication.setAppliedAt(Instant.now());
         jobAppRepo.save(jobApplication);
+
+        this.checkJobInSavedJob(job, user);
 
         JobApplicationResponse jobAppRes = JobApplicationResponse.builder()
                 .id(jobApplication.getId())
