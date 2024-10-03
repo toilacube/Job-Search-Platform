@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .email-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .email-body {
+            padding: 20px;
+        }
+        .email-footer {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header Section -->
+        <div class="email-header">
+            <h1>Job Application Reminder</h1>
+        </div>
+
+        <!-- Body Section -->
+        <div class="email-body">
+            <p>Dear <strong th:text="${user.name}">[User Name]</strong>,</p>
+
+            <p>We noticed that you haven’t yet applied for the position of 
+                <strong th:text="${job.jobTitle}">[Job Title]</strong> at 
+                <strong th:text="${job.companyName}">[Company Name]</strong>.
+            </p>
+
+            <p>Don’t miss this opportunity! Click the button below to apply now.</p>
+
+            <a class="button" th:href="'https://your-job-portal.com/apply/' + ${job.id}" target="_blank">
+                Apply Now
+            </a>
+
+            <p>If you have already applied, please disregard this reminder.</p>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="email-footer">
+            <p>Thank you for using InnotechVN! We wish you the best in your job search.</p>
+            <p>© 2024 InnotechVN, All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
