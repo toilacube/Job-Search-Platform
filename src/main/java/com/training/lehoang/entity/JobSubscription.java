@@ -1,11 +1,13 @@
 package com.training.lehoang.entity;
 
+import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -31,18 +33,18 @@ public class JobSubscription {
 
     @ColumnDefault("'{}'")
     @Column(name = "\"locationIds\"")
-    @ElementCollection
+    @Type(ListArrayType.class)
     private List<Integer> locationIds;
 
 
     @ColumnDefault("'{}'")
     @Column(name = "\"jobTagIds\"")
-    @ElementCollection
+    @Type(ListArrayType.class)
     private List<Integer> jobTagIds;
 
     @ColumnDefault("'{}'")
     @Column(name = "\"companyIds\"")
-    @ElementCollection
+    @Type(ListArrayType.class)
     private List<Integer> companyIds;
 
 }

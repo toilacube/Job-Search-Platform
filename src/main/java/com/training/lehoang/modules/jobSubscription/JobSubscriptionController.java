@@ -2,6 +2,7 @@ package com.training.lehoang.modules.jobSubscription;
 
 import com.training.lehoang.dto.request.JobSubscriptionRequest;
 import com.training.lehoang.dto.response.ApiResponse;
+import com.training.lehoang.dto.response.SubscriptionResponse;
 import com.training.lehoang.entity.JobSubscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,10 @@ public class JobSubscriptionController {
     private final JobSubscriptionService jobSubscriptionService;
     // Create or update a job subscription
     @PostMapping
-    public ApiResponse<JobSubscription> createOrUpdateSubscription(@RequestBody JobSubscriptionRequest subscriptionRequest) {
+    public ApiResponse<SubscriptionResponse> createOrUpdateSubscription(@RequestBody JobSubscriptionRequest subscriptionRequest) {
         JobSubscription jobSubscription = this.jobSubscriptionService.createOrUpdateSubscription(subscriptionRequest);
-        return ApiResponse.<JobSubscription>builder().data(jobSubscription).build();
+        SubscriptionResponse subscriptionResponse = new SubscriptionResponse(jobSubscription);
+        return ApiResponse.<SubscriptionResponse>builder().data(subscriptionResponse).build();
     }
 
     // // Retrieve a subscription by userId

@@ -45,7 +45,7 @@ public class SecurityConfig {
     };
 
     private static final String[] USER_MATCHERS ={
-        "/job/save/**",
+        "/job/save/**", "/subscription/**"
     };
 
     private static final String[] PUBLIC_MATCHERS = {
