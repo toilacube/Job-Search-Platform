@@ -15,15 +15,15 @@ public interface JobRepo extends JpaRepository<Job, Integer> {
     ArrayList<Job> findAllByIsDeletedIsFalse();
     Optional<Job> findJobByIdAndIsDeletedIsFalse(Integer jobId);
 
-    @Query("SELECT j FROM Job j " +
-            "JOIN j.company c " +  // Join with the company table
-            "JOIN j.location l " + // Join with the location table
-            "JOIN j.jobTag jt " +  // Join with the job tag table
-            "WHERE (:jobTitle IS NULL OR j.jobTitle LIKE %:jobTitle%) AND " +
-            "(:jobType IS NULL OR jt.tag = :jobType) AND " +  // Use the jobTag table for job type
-            "(:companyName IS NULL OR c.name LIKE %:companyName%) AND " +  // Use the company table
-            "(:location IS NULL OR j.location LIKE %:location%) AND " +  // Use the location table
-            "j.isDeleted = false")
+
+    @Query(value = "SELECT j.* FROM job j " +
+            "JOIN company c ON j.\"companyId\" = c.id " +
+            "WHERE j.\"isDeleted\" = false " +
+            "AND (:jobTitle IS NULL OR j.\"jobTitle\" LIKE CONCAT('%', :jobTitle, '%')) " +
+            "AND (:jobType IS NULL OR j.\"jobType\" LIKE CONCAT('%', :jobType, '%')) " +
+            "AND (:companyName IS NULL OR c.\"name\" LIKE CONCAT('%', :companyName, '%')) " +
+            "AND (:location IS NULL OR j.\"location\" LIKE CONCAT('%', :location, '%'))",
+            nativeQuery = true)
     ArrayList<Job> findByFiltersAndIsDeletedIsFalse(@Param("jobTitle") String jobTitle,
                                                     @Param("jobType") String jobType,
                                                     @Param("companyName") String companyName,

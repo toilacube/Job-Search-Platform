@@ -23,6 +23,7 @@ public class JobService {
     private final JobMapper jobMapper;
     private final SavedJobRepo savedJobRepo;
     private final JobAppRepo jobAppRepo;
+    public final CompanyRepo companyRepo;
 
     public ArrayList<JobResponse> listJobs(User recruiter) {
         ArrayList<JobResponse> jobResponses = new ArrayList<>();
@@ -39,7 +40,7 @@ public class JobService {
                 .orElseThrow(() -> new AppException(ErrorCode.JOB_NOT_FOUND));
         oldJob.setJobTitle(jobRequest.getJobTitle());
         oldJob.setDescription(jobRequest.getJobDescription());
-        oldJob.setCompany(Company.builder().name(jobRequest.getCompanyName()).build());
+        oldJob.setCompany(companyRepo.findById(jobRequest.getCompanyId()).get());
         oldJob.setLocation(jobRequest.getLocation());
         oldJob.setSalary(jobRequest.getSalary());
         return this.jobRepo.save(oldJob);

@@ -1,13 +1,18 @@
 package com.training.lehoang.entity;
 
+import io.hypersistence.utils.hibernate.type.array.IntArrayType;
+import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -59,11 +64,11 @@ public class Job {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "\"locationId\"")
-    private Location location1;
+    private Location province;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.SET_NULL)
-    @JoinColumn(name = "\"jobTagId\"")
-    private JobTag jobTag;
+    @ColumnDefault("'{}'")
+    @Column(name = "\"jobTags\"")
+    @Type(ListArrayType.class)
+    private ArrayList<Integer> jobTags;
 
 }
