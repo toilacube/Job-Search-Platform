@@ -20,9 +20,7 @@ import com.training.lehoang.entity.User;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,13 +31,38 @@ public class MailService {
     @Value("${test.email}")
     private String recruiterEmail;
 
-    // @Async
+    public void sendDailyJobSubscription(User user, ArrayList<Job> jobs) {
+        System.out.println("start to senddaily job subscription");
+        List.of(new Reciever(recruiterEmail, user.getName() + ", Don't forget to apply for this job"))
+        .forEach(reciever -> {
+            final Email email;
+            try {
+                email = DefaultEmail.builder()
+                        .from(new InternetAddress("21520870@gm.uit.edu.vn", "From InnotechVN"))
+                        .to(Lists.newArrayList(
+                                new InternetAddress(reciever.getEmail(), reciever.getName())))
+                        .subject("Your jobs subscription for today")
+                        .body("")// Empty body
+                        .encoding("UTF-8").build();
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+
+            final Map<String, Object> modelObject = new HashMap<>();
+            modelObject.put("job", jobs);
+            modelObject.put("user", user);
+
+            try {
+                emailService.send(email, "jobSubscription.html", modelObject);
+            } catch (CannotSendEmailException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+    }
+
+    @Async
     public void sendSavedJobReminder(Job job, User user) {
-//        User user = savedJob.getUser();
-//        Job job = savedJob.getJob();
-
-        System.out.println(user.getEmail());
-
         Arrays.asList(new Reciever(user.getEmail(), user.getName() + ", Don't forget to apply for this job" ))
             .forEach(reciever -> {
                 final Email email;

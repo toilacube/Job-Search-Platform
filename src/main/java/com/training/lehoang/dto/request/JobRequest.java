@@ -12,6 +12,4 @@ public class JobRequest {
     private String location;
     private BigDecimal salary;
     private String jobType;
-
-
 }

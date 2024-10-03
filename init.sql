@@ -108,7 +108,8 @@ create table "appCmt" (
 INSERT INTO users (email, "passwordHash", name, "contactInfo")
 VALUES
     ('admin@gmail.com', '$2a$10$i4KuMgCDm2AjfBYF9hoAJ.sc59m93IUU6Ic/VwccIOFBch3hx2k9y', 'aaaaaaaaa', '66669999'),
-    ('user@gmail.com', '$2a$10$i4KuMgCDm2AjfBYF9hoAJ.sc59m93IUU6Ic/VwccIOFBch3hx2k9y', 'zzzzzzz', '66669999');
+    ('user@gmail.com', '$2a$10$i4KuMgCDm2AjfBYF9hoAJ.sc59m93IUU6Ic/VwccIOFBch3hx2k9y', 'zzzzzzz', '66669999'),
+('nguyensylehoang@gmail.com', '$2a$10$i4KuMgCDm2AjfBYF9hoAJ.sc59m93IUU6Ic/VwccIOFBch3hx2k9y', 'zzzzzzz', '66669999');
 
 -- Insert initial roles
 INSERT INTO roles (name) VALUES ('ADMIN'), ('USER');
@@ -188,9 +189,9 @@ CREATE TABLE jobTags (
 );
 -- First, drop the old columns
 ALTER TABLE "job" 
-    DROP COLUMN "companyName",
-    DROP COLUMN location,
-    DROP COLUMN "jobType";
+    DROP COLUMN "companyName";
+--     DROP COLUMN location;
+--     DROP COLUMN "jobType";
 
 -- Then, add foreign key references to the new tables
 ALTER TABLE "job" 
@@ -243,12 +244,20 @@ CREATE TABLE jobSubscriptions (
 );
 INSERT INTO jobSubscriptions ("userId", "locationIds", "jobTagIds", "companyIds")
 VALUES (1, ARRAY[1, 2], ARRAY[1, 2], ARRAY[1, 2]);
+
+-- Create a sequence for job notifications
 CREATE SEQUENCE jobNotification_id_seq START WITH 1 INCREMENT BY 1;
 
+-- Create the jobNotifications table with jobIds as an array
 CREATE TABLE jobNotifications (
-    id INT PRIMARY KEY DEFAULT nextval('jobNotification_id_seq'),
-    "userId" INT NOT NULL,
-    "jobId" INT NOT NULL,
-    FOREIGN KEY ("userId") REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY ("jobId") REFERENCES "job"(id) ON DELETE CASCADE
+                                  id INT PRIMARY KEY DEFAULT nextval('jobNotification_id_seq'),
+                                  "userId" INT NOT NULL,
+                                  "jobIds" INT[] NOT NULL,  -- Store job IDs as an array
+                                  FOREIGN KEY ("userId") REFERENCES users(id) ON DELETE CASCADE
 );
+
+-- Insert data into jobNotifications table
+INSERT INTO jobNotifications ("userId", "jobIds")
+VALUES
+    (1, ARRAY[1, 2]),  -- User 1 has notifications for Job 1 and Job 2
+    (3, ARRAY[1]);

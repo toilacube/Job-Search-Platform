@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Job Subscriptions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .job-list {
+            list-style: none;
+            padding: 0;
+        }
+        .job-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .job-item:last-child {
+            border-bottom: none;
+        }
+        .job-title {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .job-description {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${user.name} + ', Don\'t forget to apply for these jobs!'"></h1>
+        <p>Here are the jobs you might be interested in:</p>
+        <ul class="job-list" th:each="job : ${job}">
+            <li class="job-item">
+                <span class="job-title" th:text="${job.jobTitle}"></span><br />
+                <span class="job-description" th:text="${job.description}"></span>
+            </li>
+        </ul>
+        <p>Good luck with your applications!</p>
+    </div>
+</body>
+</html>

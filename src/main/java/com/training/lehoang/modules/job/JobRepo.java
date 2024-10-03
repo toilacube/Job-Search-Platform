@@ -34,4 +34,6 @@ public interface JobRepo extends JpaRepository<Job, Integer> {
     @Query(value = "SELECT * FROM job WHERE to_tsvector('english', description) @@ to_tsquery(:skills)", nativeQuery = true)
     ArrayList<Job> findJobsBySkills(@Param("skills") String skills);
 
+
+    ArrayList<Job> findAllByIsDeletedIsFalseAndIdIn(ArrayList<Integer> jobIds);
 }

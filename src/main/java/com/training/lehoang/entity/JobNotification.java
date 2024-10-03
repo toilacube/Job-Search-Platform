@@ -1,11 +1,16 @@
 package com.training.lehoang.entity;
 
+import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,11 +28,12 @@ public class JobNotification {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "\"userId\"", nullable = false)
     private User user;
+    
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "\"jobId\"", nullable = false)
-    private Job job;
+    @Type(ListArrayType.class)
+    @Column(name = "\"jobIds\"",
+            columnDefinition = "integer[]")
+    private ArrayList<Integer> jobIds;
 
 }

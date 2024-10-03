@@ -45,3 +45,7 @@ docker compose up -d
 
 ## To Read
 https://stackoverflow.com/questions/7654818/org-hibernate-lazyinitializationexception-could-not-initialize-proxy-no-sessi
+
+## Reference
+https://github.com/vladmihalcea/hypersistence-utils
+
