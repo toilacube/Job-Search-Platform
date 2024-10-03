@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -60,6 +61,12 @@ public class AuthService {
     private String secretKey;
     private final LoadingCache<String, Integer> otpCache ;
 
+    // @Async
+    // public CompletableFuture<UsersRole> saveUserRoleAsync(UsersRole usersRole) {
+    //     UsersRole savedRole = usersRolesRepo.save(usersRole);
+    //     return CompletableFuture.completedFuture(savedRole);
+    // }
+
     public AuthResponse register(RegisterRequest registerRequest) {
 
         String email = registerRequest.getEmail();
@@ -69,6 +76,8 @@ public class AuthService {
         String password = registerRequest.getPassword();
         String encryptedPassword = passwordEncoder.encode(password);
 
+        Role userRole = roleRepo.findByName(RoleEnum.USER.name());
+
         User user = new User();
         user.setPasswordHash(encryptedPassword);
         user.setEmail(email);
@@ -76,15 +85,14 @@ public class AuthService {
         user.setName(registerRequest.getName());
         User newUser = this.userRepo.save(user);
 
-        Role userRole = roleRepo.findByName(RoleEnum.USER.name());
-
         System.out.println(userRole.toString());
 
         UsersRole usersRole = new UsersRole();
         usersRole.setUser(newUser);
         usersRole.setRole(userRole);
-        usersRolesRepo.save(usersRole);
+        this.usersRolesRepo.save(usersRole);
 
+        newUser.setUsersRoles(new HashSet<>(Arrays.asList(usersRole)));
 
         Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(newUser.getEmail(), password);
 
@@ -165,7 +173,7 @@ public class AuthService {
     public String createToken(Authentication authentication) {
 
         CustomUserDetails userDetails = authentication.getPrincipal() instanceof CustomUserDetails ? (CustomUserDetails) authentication.getPrincipal() : null;
-//        System.out.println(userDetails.getAuthorities());
+        System.out.println(userDetails.getAuthorities());
 
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()

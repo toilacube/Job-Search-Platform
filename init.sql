@@ -166,3 +166,89 @@ SELECT setval('"job_id_seq"', (SELECT MAX(id) FROM "job"));
 SELECT setval('jobApplications_id_seq', (SELECT MAX(id) FROM "jobApplications"));
 
 SELECT setval('usersSkills_id_seq', (SELECT MAX(id) FROM "usersSkills"));
+
+
+CREATE SEQUENCE company_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE company (
+    id INT PRIMARY KEY DEFAULT nextval('company_id_seq'),
+    name VARCHAR(255) UNIQUE NOT NULL
+);
+CREATE SEQUENCE location_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE location (
+    id INT PRIMARY KEY DEFAULT nextval('location_id_seq'),
+    province VARCHAR(255) UNIQUE NOT NULL
+);
+CREATE SEQUENCE jobTag_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE jobTags (
+    id INT PRIMARY KEY DEFAULT nextval('jobTag_id_seq'),
+    tag VARCHAR(50) UNIQUE NOT NULL
+);
+-- First, drop the old columns
+ALTER TABLE "job" 
+    DROP COLUMN "companyName",
+    DROP COLUMN location,
+    DROP COLUMN "jobType";
+
+-- Then, add foreign key references to the new tables
+ALTER TABLE "job" 
+    ADD COLUMN "companyId" INT,
+    ADD COLUMN "locationId" INT,
+    ADD COLUMN "jobTagId" INT,
+    ADD FOREIGN KEY ("companyId") REFERENCES company(id) ON DELETE CASCADE,
+    ADD FOREIGN KEY ("locationId") REFERENCES location(id) ON DELETE SET NULL,
+    ADD FOREIGN KEY ("jobTagId") REFERENCES jobTags(id) ON DELETE SET NULL;
+INSERT INTO company (name) VALUES
+    ('Tech Corp'),
+    ('Data Solutions'),
+    ('Consulting Inc');
+INSERT INTO location (province) VALUES
+    ('New York'),
+    ('California'),
+    ('Illinois');
+INSERT INTO jobTags (tag) VALUES
+    ('FE'),   -- Front-end
+    ('BE'),   -- Back-end
+    ('QC');   -- Quality Control
+-- Example update queries for existing jobs
+
+UPDATE "job" 
+SET "companyId" = (SELECT id FROM company WHERE name = 'Tech Corp'), 
+    "locationId" = (SELECT id FROM location WHERE province = 'New York'), 
+    "jobTagId" = (SELECT id FROM jobTags WHERE tag = 'FE')
+WHERE id = 1;  -- For job 1
+
+UPDATE "job" 
+SET "companyId" = (SELECT id FROM company WHERE name = 'Data Solutions'), 
+    "locationId" = (SELECT id FROM location WHERE province = 'California'), 
+    "jobTagId" = (SELECT id FROM jobTags WHERE tag = 'BE')
+WHERE id = 2;  -- For job 2
+
+UPDATE "job" 
+SET "companyId" = (SELECT id FROM company WHERE name = 'Consulting Inc'), 
+    "locationId" = (SELECT id FROM location WHERE province = 'Illinois'), 
+    "jobTagId" = (SELECT id FROM jobTags WHERE tag = 'QC')
+WHERE id = 3;  -- For job 3
+CREATE SEQUENCE jobSubscription_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE jobSubscriptions (
+    id INT PRIMARY KEY DEFAULT nextval('jobSubscription_id_seq'),
+    "userId" INT NOT NULL,
+    "locationIds" INT[] DEFAULT '{}',  -- Array of location IDs
+    "jobTagIds" INT[] DEFAULT '{}',    -- Array of job tag IDs
+    "companyIds" INT[] DEFAULT '{}',   -- Array of company IDs
+    FOREIGN KEY ("userId") REFERENCES users(id) ON DELETE CASCADE
+);
+INSERT INTO jobSubscriptions ("userId", "locationIds", "jobTagIds", "companyIds")
+VALUES (1, ARRAY[1, 2], ARRAY[1, 2], ARRAY[1, 2]);
+CREATE SEQUENCE jobNotification_id_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE jobNotifications (
+    id INT PRIMARY KEY DEFAULT nextval('jobNotification_id_seq'),
+    "userId" INT NOT NULL,
+    "jobId" INT NOT NULL,
+    FOREIGN KEY ("userId") REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY ("jobId") REFERENCES "job"(id) ON DELETE CASCADE
+);

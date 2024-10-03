@@ -43,3 +43,5 @@ docker compose up -d
 ./mvnw spring-boot:run
 ```
 
+## To Read
+https://stackoverflow.com/questions/7654818/org-hibernate-lazyinitializationexception-could-not-initialize-proxy-no-sessi

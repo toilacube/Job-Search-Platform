@@ -39,6 +39,6 @@ public class User {
 
     @ColumnDefault("false")
     @Column(name = "\"is2FA\"")
-    private Boolean is2FA;
+    private Boolean is2FA = false;
 
 }
