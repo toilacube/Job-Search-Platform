@@ -2,6 +2,7 @@ package com.training.lehoang.modules.job;
 
 import com.training.lehoang.dto.request.JobRequest;
 import com.training.lehoang.dto.response.JobResponse;
+import com.training.lehoang.entity.Company;
 import com.training.lehoang.entity.Job;
 import com.training.lehoang.entity.SavedJob;
 import com.training.lehoang.entity.User;
@@ -26,19 +27,7 @@ public class JobService {
     public ArrayList<JobResponse> listJobs(User recruiter) {
         ArrayList<JobResponse> jobResponses = new ArrayList<>();
         ArrayList<Job> jobs = this.jobRepo.findAllByRecruiterAndIsDeletedIsFalse(recruiter);
-        jobs.forEach(job ->{
-            JobResponse jobRes = JobResponse.builder()
-                    .jobType(job.getJobType())
-                    .jobTitle(job.getJobTitle())
-                    .companyName(job.getCompanyName())
-                    .description(job.getDescription())
-                    .location(job.getLocation())
-                    .salary(job.getSalary())
-                    .build();
-            jobResponses.add(jobRes);
-        });
-
-        return jobResponses;
+        return getJobResponses(jobResponses, jobs);
     }
 
     public Job createJob(Job job) {
@@ -50,7 +39,7 @@ public class JobService {
                 .orElseThrow(() -> new AppException(ErrorCode.JOB_NOT_FOUND));
         oldJob.setJobTitle(jobRequest.getJobTitle());
         oldJob.setDescription(jobRequest.getJobDescription());
-        oldJob.setCompanyName(jobRequest.getCompanyName());
+        oldJob.setCompany(Company.builder().name(jobRequest.getCompanyName()).build());
         oldJob.setLocation(jobRequest.getLocation());
         oldJob.setSalary(jobRequest.getSalary());
         return this.jobRepo.save(oldJob);
@@ -77,11 +66,15 @@ public class JobService {
             jobs = this.jobRepo.findAllByIsDeletedIsFalse();
         }
 
+        return getJobResponses(jobResponses, jobs);
+    }
+
+    private ArrayList<JobResponse> getJobResponses(ArrayList<JobResponse> jobResponses, ArrayList<Job> jobs) {
         jobs.forEach(job ->{
             JobResponse jobRes = JobResponse.builder()
                     .jobType(job.getJobType())
                     .jobTitle(job.getJobTitle())
-                    .companyName(job.getCompanyName())
+                    .companyName(job.getCompany().getName())
                     .description(job.getDescription())
                     .location(job.getLocation())
                     .salary(job.getSalary())

@@ -49,7 +49,7 @@ public class MailService {
                             .to(Lists.newArrayList(
                                     new InternetAddress(reciever.getEmail(), reciever.getName())))
                             .subject("Apply to " + job.getJobTitle() + " at "
-                                    + job.getCompanyName() + " now!")
+                                    + job.getCompany().getName() + " now!")
                             .body("")// Empty body
                             .encoding("UTF-8").build();
                 } catch (UnsupportedEncodingException e) {

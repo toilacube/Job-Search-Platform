@@ -14,15 +14,21 @@ public interface JobRepo extends JpaRepository<Job, Integer> {
     ArrayList<Job> findAllByRecruiterAndIsDeletedIsFalse(User recruiter);
     ArrayList<Job> findAllByIsDeletedIsFalse();
     Optional<Job> findJobByIdAndIsDeletedIsFalse(Integer jobId);
-    @Query("SELECT j FROM Job j WHERE " +
-            "(:jobTitle IS NULL OR j.jobTitle LIKE %:jobTitle%) AND " +
-            "(:jobType IS NULL OR j.jobType = :jobType) AND " +
-            "(:companyName IS NULL OR j.companyName LIKE %:companyName%) AND " +
-            "(:location IS NULL OR j.location LIKE %:location%)")
+
+    @Query("SELECT j FROM Job j " +
+            "JOIN j.company c " +  // Join with the company table
+            "JOIN j.location l " + // Join with the location table
+            "JOIN j.jobTag jt " +  // Join with the job tag table
+            "WHERE (:jobTitle IS NULL OR j.jobTitle LIKE %:jobTitle%) AND " +
+            "(:jobType IS NULL OR jt.tag = :jobType) AND " +  // Use the jobTag table for job type
+            "(:companyName IS NULL OR c.name LIKE %:companyName%) AND " +  // Use the company table
+            "(:location IS NULL OR j.location LIKE %:location%) AND " +  // Use the location table
+            "j.isDeleted = false")
     ArrayList<Job> findByFiltersAndIsDeletedIsFalse(@Param("jobTitle") String jobTitle,
-                                         @Param("jobType") String jobType,
-                                         @Param("companyName") String companyName,
-                                         @Param("location") String location);
+                                                    @Param("jobType") String jobType,
+                                                    @Param("companyName") String companyName,
+                                                    @Param("location") String location);
+
 
 
     @Query(value = "SELECT * FROM job WHERE to_tsvector('english', description) @@ to_tsquery(:skills)", nativeQuery = true)

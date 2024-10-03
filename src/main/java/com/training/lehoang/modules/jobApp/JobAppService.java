@@ -74,7 +74,7 @@ public class JobAppService {
                 .contactInfo(user.getContactInfo())
                 .jobTitle(job.getJobTitle())
                 .description(job.getDescription())
-                .companyName(job.getCompanyName())
+                .companyName(job.getCompany().getName())
                 .build();
 //        Test test = new Test();
 //        test.setId(id);

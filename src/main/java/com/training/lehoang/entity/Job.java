@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -32,9 +33,6 @@ public class Job {
     @Column(name = "description", nullable = false, length = Integer.MAX_VALUE)
     private String description;
 
-    @Column(name = "\"companyName\"", nullable = false)
-    private String companyName;
-
     @Column(name = "location")
     private String location;
 
@@ -49,5 +47,23 @@ public class Job {
 
     @OneToMany(mappedBy = "job")
     private Set<JobApplication> jobApplications = new LinkedHashSet<>();
+
+    @Column(name = "\"expiryDate\"")
+    private Instant expiryDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "\"companyId\"")
+    private Company company;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "\"locationId\"")
+    private Location location1;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "\"jobTagId\"")
+    private JobTag jobTag;
 
 }

@@ -33,10 +33,10 @@ public class ScheduledNoti {
     private final MailService mailService;
     private final SavedJobRepo savedJobRepo;
 
-    @Scheduled(fixedRate = 5000) // 5 minute
-    public void reportCurrentTime() {
-        System.out.println(("The time is now {}" + dateFormat.format(new Date())));
-    }
+//    @Scheduled(fixedRate = 5000) // 5 minute
+//    public void reportCurrentTime() {
+//        System.out.println(("The time is now {}" + dateFormat.format(new Date())));
+//    }
 
     @Scheduled(fixedRate = 15000 * 100000)
     @Transactional

@@ -2,6 +2,7 @@ package com.training.lehoang.modules.job;
 
 import com.training.lehoang.dto.request.JobRequest;
 import com.training.lehoang.dto.response.JobResponse;
+import com.training.lehoang.entity.Company;
 import com.training.lehoang.entity.Job;
 import com.training.lehoang.entity.User;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class JobMapper {
         job.setRecruiter(recruiter);
         job.setJobTitle(jobRequest.getJobTitle());
         job.setDescription(jobRequest.getJobDescription());
-        job.setCompanyName(jobRequest.getCompanyName());
+        job.setCompany(Company.builder().name(jobRequest.getCompanyName()).build());
         job.setLocation(jobRequest.getLocation());
         job.setSalary(jobRequest.getSalary());
         job.setJobType(jobRequest.getJobType());
@@ -31,7 +32,7 @@ public class JobMapper {
                 .jobType(job.getJobType())
                 .location(job.getLocation())
                 .description(job.getDescription())
-                .companyName(job.getCompanyName())
+                .companyName(job.getCompany().getName())
                 .build();
     }
 }
