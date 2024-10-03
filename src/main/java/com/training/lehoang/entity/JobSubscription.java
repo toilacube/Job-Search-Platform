@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,17 +35,17 @@ public class JobSubscription {
     @ColumnDefault("'{}'")
     @Column(name = "\"locationIds\"")
     @Type(ListArrayType.class)
-    private List<Integer> locationIds;
+    private ArrayList<Integer> locationIds;
 
 
     @ColumnDefault("'{}'")
     @Column(name = "\"jobTagIds\"")
     @Type(ListArrayType.class)
-    private List<Integer> jobTagIds;
+    private ArrayList<Integer> jobTagIds;
 
     @ColumnDefault("'{}'")
     @Column(name = "\"companyIds\"")
     @Type(ListArrayType.class)
-    private List<Integer> companyIds;
+    private ArrayList<Integer> companyIds;
 
 }

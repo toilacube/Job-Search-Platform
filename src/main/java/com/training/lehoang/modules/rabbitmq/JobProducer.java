@@ -1,6 +1,8 @@
 package com.training.lehoang.modules.rabbitmq;
 
+import com.training.lehoang.entity.Job;
 import com.training.lehoang.entity.Test;
+import com.training.lehoang.modules.jobSubscription.JobToSubscriber;
 import com.training.lehoang.modules.mail.UserAndJob;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -16,5 +18,9 @@ public class JobProducer {
 
     public void sendApplicationMessage(UserAndJob userAndJob) {
         rabbitTemplate.convertAndSend(exchange, "black", userAndJob);
+    }
+
+    public void sendJobToSubscriber(JobToSubscriber job) {
+        rabbitTemplate.convertAndSend(exchange, "notification", job);
     }
 }

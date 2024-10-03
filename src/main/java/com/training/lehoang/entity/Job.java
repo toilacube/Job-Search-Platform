@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "job")
-public class Job {
+public class Job  {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_id_gen")
     @SequenceGenerator(name = "job_id_gen", sequenceName = "job_id_seq", allocationSize = 1)

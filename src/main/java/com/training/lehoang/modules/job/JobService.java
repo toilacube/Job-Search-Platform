@@ -9,6 +9,9 @@ import com.training.lehoang.entity.User;
 import com.training.lehoang.exception.AppException;
 import com.training.lehoang.exception.ErrorCode;
 import com.training.lehoang.modules.jobApp.JobAppRepo;
+import com.training.lehoang.modules.jobSubscription.JobToSubscriber;
+import com.training.lehoang.modules.rabbitmq.JobConsumer;
+import com.training.lehoang.modules.rabbitmq.JobProducer;
 import com.training.lehoang.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ public class JobService {
     private final SavedJobRepo savedJobRepo;
     private final JobAppRepo jobAppRepo;
     public final CompanyRepo companyRepo;
+    private final JobProducer jobProducer;
 
     public ArrayList<JobResponse> listJobs(User recruiter) {
         ArrayList<JobResponse> jobResponses = new ArrayList<>();
@@ -32,7 +36,10 @@ public class JobService {
     }
 
     public Job createJob(Job job) {
-        return this.jobRepo.save(job);
+        Job newJob = this.jobRepo.save(job);
+        JobToSubscriber jobToSubscriber = new JobToSubscriber(job);
+        this.jobProducer.sendJobToSubscriber(jobToSubscriber);
+        return newJob;
     }
 
     public Job updateJob(Integer jobId, JobRequest jobRequest) {

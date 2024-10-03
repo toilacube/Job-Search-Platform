@@ -48,7 +48,7 @@ public class ScheduledNotification {
     }
 
     // Daily emails with jobs that match user subscription
-  //  @Scheduled(fixedRate = 15000) // 15 second
+//    @Scheduled(fixedRate = 15000) // 15 second
     @Scheduled(cron = "0 0 12 * * *")
     @Transactional
     public void sendDailyJobSubscription() {

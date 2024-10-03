@@ -12,9 +12,17 @@ public class RabbitMQConfig {
     public static final String QUEUE_NAME = "spring-boot";
     public static final String EXCHANGE_NAME = "spring-boot-exchange";
 
+    // New Queue
+    public static final String JOB_NOTIFICATION_QUEUE_NAME = "job-notification";
+
     @Bean
     public Queue jobQueue() {
         return new Queue(QUEUE_NAME, true);
+    }
+
+    @Bean
+    public Queue jobNotificationQueue() {
+        return new Queue(JOB_NOTIFICATION_QUEUE_NAME, true); // Create the new queue
     }
 
     @Bean
@@ -25,6 +33,11 @@ public class RabbitMQConfig {
     @Bean
     public Binding binding(Queue jobQueue, TopicExchange exchange) {
         return BindingBuilder.bind(jobQueue).to(exchange).with("black");
+    }
+
+    @Bean
+    public Binding jobNotificationBinding(Queue jobNotificationQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(jobNotificationQueue).to(exchange).with("notification"); // Create binding for the new queue
     }
 
     @Bean
