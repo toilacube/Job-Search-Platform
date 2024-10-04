@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"string\"\n}",
+							"raw": "{\n    \"email\": \"n111guyensylehoang@gmail.com\",\n    \"password\": \"string\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -204,7 +204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"11@gmail.com\",\n  \"password\": \"3123223\",\n  \"name\": \"111\",\n  \"contactInfo\": \"111111\"\n}",
+							"raw": "{\n  \"email\": \"nguyensylehoang@gmail.com\",\n  \"password\": \"string\",\n  \"name\": \"111\",\n  \"contactInfo\": \"111111\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -305,6 +305,71 @@
 							"body": "{\n    \"code\": 200,\n    \"message\": \"User registered successfully\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMUBnbWFpbC5jb20iLCJleHAiOjIzMjc2MDYwNDIsImlhdCI6MTcyNzYwNjEwMiwiYXV0aG9yaXRpZXMiOltdfQ.BB9ERlLHBCnFQ5-PvM82jxdiFSRoga9JM7EWL1bws84\"\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "verify otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@gmail.com\",\n  \"otp\": 635521\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/verify-otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"verify-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set 2fa on off",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjc4NDA3NjMsImlhdCI6MTcyNzg0MDgyMywiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.qR73_9LuUxl1uMTAbDBPkKLPn4AawCjHYwQy4PkIGDc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/auth/2fa?isEnable=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"2fa"
+							],
+							"query": [
+								{
+									"key": "isEnable",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -319,7 +384,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjczNDMyMDMsImlhdCI6MTcyNzM0MzI2MywiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.jYPQsvnw3Xn0Rkof_I-RIFcLw50odN7vpefAQUSjB",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjc4NDA3NjMsImlhdCI6MTcyNzg0MDgyMywiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.qR73_9LuUxl1uMTAbDBPkKLPn4AawCjHYwQy4PkIGDc",
 									"type": "string"
 								}
 							]
@@ -572,11 +637,112 @@
 							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"url\": \"https://res.cloudinary.com/dshmssb6c/image/upload/UserId:1_file6de26f8a-5d72-450a-bd32-b4c367b8ed5f.pdf\"\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "get all feedback",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/feedback",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"feedback"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all feedback",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/user/feedback",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"feedback"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Sep 2024 10:33:45 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"feedback\": {\n                \"id\": 1,\n                \"applicationId\": 1,\n                \"comment\": \"Your CV is very good but unfortunately kkkkk\"\n            },\n            \"jobApplication\": {\n                \"id\": 1,\n                \"resumeUrl\": \"https://res.cloudinary.com/dshmssb6c/image/upload/UserId:1_resumeb8ea3f24-e6f7-458f-9c9f-ffbddfd9cda1.pdf\",\n                \"coverLetter\": \"final\"\n            }\n        }\n    ]\n}"
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "job listing",
+			"name": "job",
 			"item": [
 				{
 					"name": "admin test",
@@ -594,14 +760,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/jobList",
+							"raw": "http://localhost:8080/job",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"jobList"
+								"job"
 							]
 						}
 					},
@@ -723,7 +889,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"jobTitle\": \"jobTitle\",\n  \"jobDescription\": \"abcccccc\",\n  \"companyName\": \"Innotech\",\n  \"location\": \"gan san bay\",\n  \"salary\": 99999999,\n  \"jobType\": \"Part-time\"\n}",
+							"raw": "{\n  \"jobTitle\": \"Cloud Architect\",\n  \"jobDescription\": \"Design and implement scalable cloud solutions for enterprise clients.\",\n  \"companyId\": 3,\n  \"location\": \"5432 Cloud St, Boston, MA\",\n  \"salary\": 160000.00,\n  \"jobType\": \"Full-time\",\n  \"expiryDate\": \"2024-11-30T00:00:00Z\",\n  \"provinceId\": 4,\n  \"jobTags\": [1, 3]  // Assume 1 = 'Cloud Computing', 3 = 'Cybersecurity'\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -744,13 +910,13 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "new job",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"jobTitle\": \"jobTitle\",\n  \"jobDescription\": \"abcccccc\",\n  \"companyName\": \"Innotech\",\n  \"location\": \"gan san bay\",\n  \"salary\": 99999999,\n  \"jobType\": \"Part-time\"\n}",
+									"raw": "{\n  \"jobTitle\": \"Cloud Architect\",\n  \"jobDescription\": \"Design and implement scalable cloud solutions for enterprise clients.\",\n  \"companyId\": 3,\n  \"location\": \"5432 Cloud St, Boston, MA\",\n  \"salary\": 160000.00,\n  \"jobType\": \"Full-time\",\n  \"expiryDate\": \"2024-11-30T00:00:00Z\",\n  \"provinceId\": 4,\n  \"jobTags\": [1, 3]  // Assume 1 = 'Cloud Computing', 3 = 'Cybersecurity'\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -807,7 +973,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 25 Sep 2024 09:32:22 GMT"
+									"value": "Thu, 03 Oct 2024 07:49:04 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -819,7 +985,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"jobTitle\": \"jobTitle\",\n        \"jobType\": \"Part-time\",\n        \"description\": \"abcccccc\",\n        \"companyName\": \"Innotech\",\n        \"location\": \"gan san bay\",\n        \"salary\": 99999999\n    }\n}"
+							"body": "{\n    \"code\": 201,\n    \"message\": null,\n    \"data\": {\n        \"jobTitle\": \"Cloud Architect\",\n        \"jobType\": \"Full-time\",\n        \"description\": \"Design and implement scalable cloud solutions for enterprise clients.\",\n        \"companyName\": \"FinTech World\",\n        \"location\": \"5432 Cloud St, Boston, MA\",\n        \"salary\": 160000\n    }\n}"
 						}
 					]
 				},
@@ -840,10 +1006,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n  \"jobTitle\": \"Cloud Architect 123\",\n  \"jobDescription\": \"Design and implement scalable cloud solutions for enterprise clients.\",\n  \"companyId\": 3,\n  \"location\": \"5432 Cloud St, Boston, MA\",\n  \"salary\": 160000.00,\n  \"jobType\": \"Full-time\",\n  \"expiryDate\": \"2024-11-30T00:00:00Z\",\n  \"provinceId\": 4,\n  \"jobTags\": [1, 3]  // Assume 1 = 'Cloud Computing', 3 = 'Cybersecurity'\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/job/2",
+							"raw": "http://localhost:8080/job/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -851,7 +1022,7 @@
 							"port": "8080",
 							"path": [
 								"job",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -1040,12 +1211,25 @@
 				},
 				{
 					"name": "job search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "jobTitle",
+									"value": "Cloud asd",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "http://localhost:8080/job/search",
 							"protocol": "http",
@@ -1137,6 +1321,37 @@
 							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"jobTitle\": \"Software Engineer\",\n            \"jobType\": \"Full-time\",\n            \"description\": \"Develop and maintain web applications\",\n            \"companyName\": \"Tech Corp\",\n            \"location\": \"New York, NY\",\n            \"salary\": 120000\n        }\n    ]\n}"
 						}
 					]
+				},
+				{
+					"name": "save job (user)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZ3V5ZW5zeWxlaG9hbmdAZ21haWwuY29tIiwiZXhwIjoyMzI3ODU0OTYzLCJpYXQiOjE3Mjc4NTUwMjMsImF1dGhvcml0aWVzIjpbIlVTRVIiXX0.szxJb7LUVpE3k-8E1Lp_xO_Gr3fX3iR1OjQQa3ZTxp8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/job/save/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"job",
+								"save",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1164,7 +1379,7 @@
 								{
 									"key": "resume",
 									"type": "file",
-									"src": "/home/toilacube/Downloads/Intern_Java_NguyenSyLeHoang.pdf"
+									"src": "/home/toilacube/Downloads/Bai tap mapreduce (1).pdf"
 								},
 								{
 									"key": "coverLetter",
@@ -1173,7 +1388,7 @@
 								},
 								{
 									"key": "jobId",
-									"value": "1",
+									"value": "3",
 									"type": "text"
 								}
 							]
@@ -1283,6 +1498,605 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "skill",
+			"item": [
+				{
+					"name": "add skills",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"skills\": [1,2,3,4,5]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/skill",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"skill"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"skills\": [1,2,3,4,5]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/user/skill",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"skill"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Sep 2024 07:47:35 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"id\": 4,\n            \"name\": \"JavaScript\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Backend\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get user skill",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user/skill",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"skill"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/user/skill",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"skill"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Sep 2024 07:47:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Java\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Python\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"SQL\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"JavaScript\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Backend\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "job recommendation",
+			"item": [
+				{
+					"name": "recomm for current user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/job",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"job"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "recomm for current user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/user/job",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"job"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Oct 2024 03:18:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"jobTitle\": \"Cloud Architect\",\n            \"jobType\": \"Full-time\",\n            \"description\": \"Design and implement scalable cloud solutions for enterprise clients. CLoud SQL\",\n            \"companyName\": \"FinTech World\",\n            \"location\": \"5432 Cloud St, Boston, MA\",\n            \"salary\": 160000\n        },\n        {\n            \"jobTitle\": \"UI/UX Designer\",\n            \"jobType\": \"Full-time\",\n            \"description\": \"Design intuitive and visually appealing interfaces for mobile and web applications. Python, Cloud\",\n            \"companyName\": \"Global Enterprises\",\n            \"location\": \"5678 Design Rd, Miami, FL\",\n            \"salary\": 85000\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "feedback",
+			"item": [
+				{
+					"name": "recruiter feedback",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjIzMjcyNTQ4NzYsImlhdCI6MTcyNzI1NDkzNiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iLCJVU0VSIl19.7C3lT-T-lFR2Jg0A6Va0B1lxwc_ov2BZGg5Q56BwOOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"feedback\": \"Your CV is very good but unfortunately kkkkk\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/feedback/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feedback",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "feedback",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"feedback\": \"Your CV is very good but unfortunately kkkkk\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/feedback/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"feedback",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Sep 2024 10:06:39 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"applicationId\": 1,\n    \"comment\": \"Your CV is very good but unfortunately kkkkk\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "job subscription",
+			"item": [
+				{
+					"name": "subscribe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZ3V5ZW5zeWxlaG9hbmdAZ21haWwuY29tIiwiZXhwIjoyMzI3ODU0OTYzLCJpYXQiOjE3Mjc4NTUwMjMsImF1dGhvcml0aWVzIjpbIlVTRVIiXX0.szxJb7LUVpE3k-8E1Lp_xO_Gr3fX3iR1OjQQa3ZTxp8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 1,\n  \"locationIds\": [1],\n  \"jobTagIds\": [1, 2],\n  \"companyIds\": [1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/subscription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subscription"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "subscribe",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userId\": 1,\n  \"locationIds\": [1],\n  \"jobTagIds\": [1, 2],\n  \"companyIds\": [1]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/subscription",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"subscription"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 04 Oct 2024 03:14:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"id\": 3,\n        \"locationIds\": [\n            1\n        ],\n        \"jobTagIds\": [\n            1,\n            2\n        ],\n        \"companyIds\": [\n            1\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "1. Allow users to subscribe to job alerts based on specific criteria (e.g., job title, location, company).\n    \n2. Send daily or weekly emails with new job listings that match the user’s criteria."
 		},
 		{
 			"name": "test",
