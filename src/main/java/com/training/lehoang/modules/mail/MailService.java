@@ -63,7 +63,10 @@ public class MailService {
 
     @Async
     public void sendSavedJobReminder(Job job, User user) {
-        Arrays.asList(new Reciever(user.getEmail(), user.getName() + ", Don't forget to apply for this job" ))
+        // recruiterEmail should be
+        // replaced by userMail, this
+        // is just for testing
+        Arrays.asList(new Reciever(recruiterEmail, user.getName() + ", Don't forget to apply for this job" ))
             .forEach(reciever -> {
                 final Email email;
                 try {
@@ -97,9 +100,10 @@ public class MailService {
     public void sendOtpWithMail(String userMail, int otp) throws MessagingException, UnsupportedEncodingException {
         final Email email = DefaultEmail.builder()
                 .from(new InternetAddress("21520870@gm.uit.edu.vn", "Project"))
-                .to(Lists.newArrayList(new InternetAddress(recruiterEmail, "Helloooooo"))) // recruiterEmail should be
-                                                                                           // replaced by userMail, this
-                                                                                           // is just for testing
+                // recruiterEmail should be
+                // replaced by userMail, this
+                // is just for testing
+                .to(Lists.newArrayList(new InternetAddress(recruiterEmail, "Helloooooo")))
                 .subject("Your OTP confirmation")
                 .body("Your OTP: " + otp)
                 .encoding("UTF-8").build();

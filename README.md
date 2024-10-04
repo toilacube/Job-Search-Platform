@@ -1,8 +1,3 @@
-Here’s a polished version of your documentation, enhancing readability and presentation while maintaining all essential details:
-
----
-
-# Job Subscription and 2FA Service Documentation
 
 ## Note
 
@@ -16,8 +11,12 @@ Here’s a polished version of your documentation, enhancing readability and pre
   
   ![](./2fa.png)
 
-- ### Job Subscription
+- **Job Reminder:**
+Find all saved job of users and send to their email if they havent applied yet.
 
+- 
+
+- **Job Subscription:** Send all jobs that match user subscription 2 times per day.
     The criteria for adding a job to a user's subscription list are as follows:
 
     1. **Company Match**: 
@@ -42,15 +41,23 @@ Here’s a polished version of your documentation, enhancing readability and pre
 
 ---
 
-## Usage
+## Configuration
 
 If you want to:
 - Test the RabbitMQ email service
 - Test the email-based 2FA service
+- Test the job reminder, subscription service
 
-### Configuration
+Go to `application.yml`:
 
-Go to `application.yml` and replace your email in order to receive notifications:
+- Change spring profile to `test` instead of `prod`, this will enable Job Reminder feature to run every 5 minutes instead of every 8AM:
+```yaml
+spring:
+  profiles:
+    active: test
+```
+
+- Replace your email in order to receive notifications:
 
 ```yaml
 test:
@@ -86,7 +93,7 @@ test:
    docker compose up -d
    ```
 
-3. **Remember to use JDK 17 or higher**.
+3. **Make sure to have JDK 17 or higher in your local machine**.
 
 4. **Run the Application**:
 

@@ -1,4 +1,8 @@
+test:
+  email: nguyensylehoang@gmail.com
 spring:
+  profiles:
+    active: prod
   application:
     name: "lehoang"
   mail:
@@ -42,5 +46,3 @@ spring:
     show-sql: true
 jwt:
   secret: tPfXBOu9n0MMf6QWr8kmIpUU7hHG3xugHsKo3jNAx514dXkXGfQ17SlJyKPvjPclfTu9noA/YSLT7ZYiPPgGhg==
-test:
-  email: nguyensylehoang@gmail.com

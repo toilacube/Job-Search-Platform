@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.training.lehoang.entity.*;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -24,39 +25,54 @@ public class ScheduledNotification {
     private final JobNotificationRepo jobNotificationRepo;
     private final JobRepo jobRepo;
 
-    // @Scheduled(fixedRate = 5000) // 5 second
-    // public void reportCurrentTime() {
-    // System.out.println(("The time is now {}" + dateFormat.format(new Date())));
-    // }
-
-    // Job reminder at 8am and 5pm everyday
+    @Scheduled(fixedRate = 300 * 5000)
+    @Profile("test")
+    @Transactional
+    public void runForTest() {
+        this.runScheduledJobReminder();
+    }
     @Scheduled(cron = "0 0 8 * * *")
     @Scheduled(cron = "0 0 17 * * *")
+    @Profile("prod")
     @Transactional
-    public void sendSavedJobReminder() {
+    public void runForProd() {
+        this.runScheduledJobReminder();
+    }
+
+    // Job Subscription Schedules
+    @Scheduled(fixedRate = 300 * 5000)
+    @Profile("test")
+    @Transactional
+    public void runSubscriptionForTest() {
+        this.runDailyJobSubscription();
+    }
+
+    @Scheduled(cron = "0 0 12 * * *")
+    @Profile("prod")
+    @Transactional
+    public void runSubscriptionForProd() {
+        this.runDailyJobSubscription();
+    }
+
+    @Transactional
+    public void runScheduledJobReminder() {
 
         System.out.println("Start to send saved job reminder");
         ArrayList<SavedJob> savedJobs = savedJobRepo.findAllByIsAppliedIsFalse();
         savedJobs.forEach(savedJob -> {
-//            CompletableFuture.runAsync(() -> {
                 User user = savedJob.getUser();
                 Job job = savedJob.getJob();
                 mailService.sendSavedJobReminder(job, user);
-//            });
         });
         System.out.println("End to send saved job reminder");
     }
 
-    // Daily emails with jobs that match user subscription
-//    @Scheduled(fixedRate = 15000) // 15 second
-    @Scheduled(cron = "0 0 12 * * *")
     @Transactional
-    public void sendDailyJobSubscription() {
+    public void runDailyJobSubscription() {
 
         List<JobNotification> jobNotifications = jobNotificationRepo.findAll();
 
         jobNotifications.forEach(jobNotification -> {
-//            CompletableFuture.runAsync(() -> {
                 User user = jobNotification.getUser();
                 ArrayList<Job> jobs =this.jobRepo.findAllByIsDeletedIsFalseAndIdIn(jobNotification.getJobIds());
                 System.out.println(user.getEmail());
@@ -64,7 +80,6 @@ public class ScheduledNotification {
                     System.out.println(job.getJobTitle());
                 });
                 mailService.sendDailyJobSubscription(user, jobs);
-//            });
         });
 
 
