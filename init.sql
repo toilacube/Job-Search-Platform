@@ -185,7 +185,7 @@ VALUES
 INSERT INTO "job" ("recruiterId", "jobTitle", description, "companyId", "location", "locationId", salary, "jobType", "isDeleted", "expiryDate", "jobTags")
 VALUES
     (1, 'DevOps Engineer',
-     'Responsible for managing cloud infrastructure and automating software deployment pipelines.',
+     'Responsible for managing cloud infrastructure and automating software deployment pipelines. Python, SQL, Cloud',
      (SELECT id FROM company WHERE name = 'Innovative Tech Solutions'),
      '1234 Cloud St, Austin, TX',  -- Address for job
      (SELECT id FROM location WHERE province = 'Texas'),
@@ -193,7 +193,7 @@ VALUES
      ARRAY[(SELECT id FROM jobTags WHERE tag = 'DevOps'), (SELECT id FROM jobTags WHERE tag = 'Cloud Computing')]
     ),
     (1, 'UI/UX Designer',
-     'Design intuitive and visually appealing interfaces for mobile and web applications.',
+     'Design intuitive and visually appealing interfaces for mobile and web applications. JavaScript, Python, Cloud',
      (SELECT id FROM company WHERE name = 'Global Enterprises'),
      '5678 Design Rd, Miami, FL',  -- Address for job
      (SELECT id FROM location WHERE province = 'Florida'),
@@ -201,7 +201,7 @@ VALUES
      ARRAY[(SELECT id FROM jobTags WHERE tag = 'UI/UX')]
     ),
     (1, 'Data Scientist',
-     'Analyze large datasets to uncover insights and build predictive models.',
+     'Analyze large datasets to uncover insights and build predictive models. Python, Cloud',
      (SELECT id FROM company WHERE name = 'FinTech World'),
      '9876 Analytics Blvd, Seattle, WA',  -- Address for job
      (SELECT id FROM location WHERE province = 'Washington'),

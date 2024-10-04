@@ -5,7 +5,7 @@
 
   ![](./schema.png)
 
-- The job recommendation in task 6 was built using the **Full Text Search** feature from PostgreSQL.
+- **The job recommendation** in task 6 was built using the **Full Text Search** feature from PostgreSQL, job will be recommended base on user skills and job description.
   
 - The 2FA service workflow:
   
