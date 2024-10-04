@@ -77,25 +77,21 @@ test:
 ---
 
 ## How to Run
-
-1. **Open Terminal** and execute the following commands:
+- **Open Terminal** and execute the following commands:
 
    ```bash
    git clone .....
    cd ....
    ```
-
-2. **Start Docker Compose**:
+- **Start Docker Compose**:
 
    PostgreSQL will run on port `5430`, RabbitMQ will run on ports `5672` and `15672`:
 
    ```bash
    docker compose up -d
    ```
-
-3. **Make sure to have JDK 17 or higher in your local machine**.
-
-4. **Run the Application**:
+- **Make sure to have JDK 17 or higher in your local machine**.
+- **Run the Application**:
 
    ```bash
    ./mvnw spring-boot:run
